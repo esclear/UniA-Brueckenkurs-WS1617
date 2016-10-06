@@ -1,0 +1,101 @@
+\documentclass[14pt,a4paper]{article}
+
+\usepackage{setspace}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+\newcommand{\dotcup}{\ensuremath{\mathaccent\cdot\cup}}
+
+\begin{document}
+	\begin{center}
+		\Huge\textbf{Brückenkurs – Tag 3 – „3. Ausgabe“}
+	\end{center}
+	\par
+	
+	\section{Die natürlichen Zahlen und das Induktionsprinzip}
+	\subsection{Beispiel}
+		Von Tag 2:
+			\paragraph{Satz}
+				$$ \Sigma_{k=1}^{n} k = \frac{1}{2} \cdot n \cdot (n + 1) $$
+			\paragraph{Folgerung (\textit{Korollar})}
+				$$ \Sigma_{k=1}^{n} ( 2 \cdot k -1 ) = n^2 $$
+			\paragraph{Beweis}
+				$$ \Sigma_{k=1}^{n} (2k-1) = \Sigma_{k=1}^{2n} k - \Sigma_{k=1}^{n} 2k $$
+				Mit Formel aus Satz auf die Formel angewendet:
+				$$ \frac{1}{2} \cdot 2 \cdot n \cdot (2n+1) -2 \cdot \frac{1}{2} n(n+1) = 2n^2 + n - n^2 -n = n^2 $$
+				Es wird zuerst die Summe aller Zahlen von $1$ bis $2n$ addiert, danach die Summe aller geraden Zahlen abgezogen
+
+				Hier auch implizite Verwendung der Assoziatät und Kommutivität der Addition.
+
+	\subsection{Weiteres Beispiel}
+		\paragraph{Satz} Sei $ x \neq 1 $. Dann gilt: $\Sigma_{k=0}^{n} x^k = \frac{1-x^{n+1}}{1-x} $ („Geometrische Summe“)
+		\paragraph{Beispiel}
+			$$ 1 + 2 + 4 + \dots 2^{63} = \frac{1-2^{64}}{1-2} = 2^{64} - 1 = 18.446.744.073.709.551.615 $$
+		\paragraph{Beweis 1} Ansatz der vollständigen Induktion:
+			\subparagraph{$n=0$}
+				$ x^0 = 1 ; \frac{1-x^2}{1-x} = 1 $ Formel stimmt also für $n=0$
+			\subparagraph{$ n \implies n+1 $}
+				$$ \Sigma_{k=0}^{n+1} x^k = x^{n+1} + \Sigma_{k=0}^{n} x^k = (I.V)  x^{n+1} + \frac{1-x^{n+1}}{1-x} = \frac{x^{n+1}(1-x) + 1 -x^{n+1}}{1-x} = \frac{1-x^{n+2}}{1-x} $$
+		\paragraph{Beweis 2} 
+			$$ \Sigma_{k=0}^n x^k = \frac{1-x^{n+1}}{1-x} \Leftrightarrow (1-x) \Sigma_{k=0}^n x^k = 1-x^{n+1} = \Sigma_{k=0}^{n} x^k - \Sigma_{k=0}^n x^{k+1} = \Sigma_{k=0}^n x^k - \Sigma_{k=1}^{n+1} x^k = x^0 - x^{n+1} = 1 - x^{n+1}  $$
+			Für $ x \neq 1 $.
+			q.e.d.
+	\subsection{Äquivalenz- und Induktionsprinzip}
+	\paragraph{Satz}
+		Jede nicht-leere Teilmenge von $ N_0 $ besitzt ein kleinstes Element. („ $N_0$ ist \textit{wohlgeordnet} “)
+	\paragraph{Beweis}
+		Sei $ M \subseteq N_0$ ohne kleinstes Element. Wir wollen zeigen dass: $ M = \emptyset $, d.h. $ P = \{ n \in N_0 | 0, 1, \dots, n \notin M \} = N_0 $  % $P = N_0 \setminus M = N_0 $
+		Hierbei Anwendung des \textit{Peano-Axioms}:
+		\subparagraph{$0 \in P$}
+			Wäre $0 \notin P$, so wäre $0 \in M$, insbesondere kleinstes Element von $M$. Dies ist ein Widerspruch, also $0 \in P$.
+		\subparagraph{$ n \in P \implies n+1 \in P$}
+			Wäre $n+1 \notin P$. Dann wäre eine der Zahlen $ 0, \dots, n+1 \in M$.
+			Da aber nach Voraussetzung $n \in P$, ist $0, \dots, n \notin M$. Also $n+1 \in M$.
+			Insbesondere ist $n+1$ kleinstes Element. Widerspruch, also ist $n+1 \in P$.
+
+	\section{Die ganzen und die rationalen Zahlen}
+		\subsection{Relation}
+			Eine \textbf{Relation} auf einer Menge $M$ ist eine Teilmenge $ R \subseteq M \times M $
+			Wir schreiben $ x \sim y :\Leftrightarrow. (x,y) \in R$ für $x,y \in M$.
+
+			\paragraph{Beispiel} $ x \leq y $ auf $ N_0$:
+				
+				[Skizze: Punkte auf Gitter, $x,y \leq 4 \in N_0$. Oberhalb und auf der Diagonale blaue Menge.]
+
+				\begin{tabular}{ c | c | c | c | c   c }
+					  & 0 & 1 & 2 & 3 & y \\
+					0 & x &   &   &   &   \\
+					1 & x & x & x & x &   \\
+					2 & x &   & x &   &   \\
+					3 & x &   &   & x &   \\
+					x &   &   &   &   &   \\
+				\end{tabular}
+			\paragraph{Definition}
+				Eine Relation auf $M$ heißt \textbf{Äquivalenzrelation}, falls sie:
+				\begin{enumerate}
+					\item \textbf{reflexiv} ist, d.h. $ x \sim x $ für alle $ x \in M$.
+					\item \textbf{symmetrisch} ist, d.h. $x \sim y \implies y \sim x $ für alle $ x,y \in M $.
+					\item \textbf{transitiv} ist, d.h. $ x \sim y \land y \sim z \implies x \sim z$ für alle $x,y,z \in M$.
+				\end{enumerate}
+			\paragraph{Beispiel}
+				Die Gleichheitsrelation auf einer Menge ist eine Äquivalenzrelation
+			\paragraph{Beispiel}
+				Sei $M$ eine Menge von Menschen. Die Relation „ist verwand mit“ (im Sinne von „gehört zur gleichen Familie“) ist eine Äquivalenzrelation.
+			\paragraph{Beispiel}
+				Sei $M$ eine Menge von Menschen. Die Relation „hat im gleichen Monat Geburtstag“ ist eine Äquivalenzrelation.
+
+				Dabei ist $ M = M_1 \dotcup M_2 \dotcup \dots \dotcup M_{12} $. Die $M_1$ heißen die \textbf{Äquivalenzklassen} der Relation und stehen hier für die Monate.
+
+			\paragraph{Beispiel}
+				Relation $ \sim $ auf $ Z $ mit $ x \sim y :\Leftrightarrow x-y $ gerade.
+				Ist reflexiv und symmetrisch.
+				ist transitiv? $ x \sim y, y \sim z \implies x-y$ gerade, $ y-z$ gerade. $\implies (x-y) + (y-z) = x-z$ gerade $\implies x \sim z $
+				Ist also Äquivalenzrelation.
+
+				\subparagraph{Äquivalenzklassen}
+					In diesem Beispiel: $ Z = \{Gerade Zahlen\} \dotcup \{Ungerade Zahlen\} $
+\end{document}
+
