@@ -1,0 +1,323 @@
+\documentclass[14pt,a4paper]{article}
+
+\usepackage{setspace}
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\pagestyle{fancy}%
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}%
+\fancyfoot[L]{Daniel Albert}
+\fancyfoot[C]{Alle Mitschriften ohne Garantie auf Korrektheit oder Vollständigkeit}
+\fancyfoot[R]{\thepage{} / \pageref{LastPage}}
+%%
+
+\newcommand{\dotcup}{\ensuremath{\mathaccent\cdot\cup}}
+\newcommand*\rfrac[2]{{}^{#1}\!/_{#2}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\Nzero}{\ensuremath{\N_0}}
+
+\begin{document}
+	\begin{center}
+		\Huge\textbf{Brückenkurs – Tag 7 – 2016-10-12}
+	\end{center}
+	\par
+%
+  \setcounter{section}{9}
+  \setcounter{subsection}{2}
+  \subsection{Fortsetzung Fibonacci-Folge}%
+
+  %TODO Ab hier kopieren
+
+
+  \paragraph{Satz}
+  Die Folge $(x^k)_{k \in \Nzero}$ konvergiert für $ |x| < 1 $ gegen $0$.
+  \subparagraph{Beweis}
+  Zu betrachten: Abstand $x^k$ zu $0$ für große $ k \to |x^k|$
+  Wir müssen $ |x^k-0| = |x|^k $ abschätzen.
+  Ohne Beschränkung der Allgemeinheit sei $ 0 \leq x < 1 $.
+
+  Da $x < 1 $, ist $\frac{1}{x} = 1 + y$ für $y>0$.
+  Damit ist $\frac{1}{x^n} = (1+y)^n = 1 + 1 + \binom{n}{2} y^2 + \ldots +
+  \binom{n}{n} y^n \geq 1 + n \cdot y$
+  
+  Also $ x^n \leq \frac{1}{1+n \cdot y} < \frac{1}{n \cdot y} $
+  Ist also $ \varepsilon > 0 $ vorgegeben, so wähle $n_0 \geq
+  \frac{1}{\varepsilon y}$.
+
+  Für alle $ n \geq n_0 $ ist dann $ |x^n| < \varepsilon_0$
+
+  \paragraph{Fibonacci-Satz}
+  $ \varphi := \frac{1}{2} ( 1 + \sqrt{5} ) , \overline{\varphi} :=
+  \frac{1}{2}(1-\sqrt{5})$.
+  Dann gilt: $ F_n = \frac{1}{\sqrt{5}} (\varphi^n - \overline{\varphi}^n) $
+
+  \subparagraph{Beweis}
+  Es gilt: $ \varphi^2 = \varphi + 1$ und $\overline{\varphi}^2 =
+  \overline{\varphi} + 1$, also $X^2 -X-1 = (X - \varphi)(X -
+  \overline{\varphi}) $
+
+  Dann Induktion über $n$:
+
+  \textbf{n = 0}: $ F_0 = 0 \stackrel{\checkmark}{=} \frac{1}{\sqrt{5}}(\varphi^0
+  - \overline{\varphi}^0) $ 
+
+  \textbf{n = 1}: $ F_1 = 1 \stackrel{\checkmark}{=} \frac{1}{\sqrt{5}}(\varphi^1
+  - \overline{\varphi}^1) $
+
+  \textbf{n, n+1 $\rightarrow$ n + 2}:\\
+  $$ F_n + F_{n + 1} \stackrel{IV}{=}
+  \frac{1}{\sqrt{5}} (\varphi^n - \overline{\varphi}^n) + (\varphi^{n+1} -
+  \overline{\varphi}^{n+1}) = \frac{1}{\sqrt{5}} \left(\varphi^n (1 + \varphi) -
+    \overline{\varphi}^n(1 + \overline{\varphi} ) \right) = \frac{1}{\sqrt{5}}
+  (\varphi^n \varphi^2 - \overline{\varphi}^n \overline{\varphi}^2) =
+  \frac{1}{\sqrt{5}} (\varphi^{n+2} - \overline{\varphi}^{n+2}) \;\;\;
+  \square $$
+
+  \subsection{Heron-Verfahren}
+  Sei $a_0 = 1, a_{n+1} = \frac{1}{2} ( a_n + \frac{2}{a_n}) $
+
+  $a_0 = 1 ; a_1 = \frac{3}{2} ; a_2 = \frac{17}{12} = 1,41\overline{6} ; a_3 = \frac{577}{408} = 1,414215\ldots $
+
+  \paragraph{Vermutung}
+  Die Folge $ (a_n)_{n \geq 0}$ konvergiert gegen $\sqrt{2} = 1,414213562\ldots $
+
+  \paragraph{Beweisskizze}
+  Wir zeigen unter der Annahme, dass die Folge konvergiert, dass \\
+  $ a := \lim_{n\to \infty} a_n = \sqrt{2} : a = \lim_{n \to \infty} a_{n+1} =
+  \lim_{n \to \infty} \frac{1}{2}(a_n + \frac{2}{a_n}) = \frac{1}{2} (( \lim_{n
+    \to \infty} a_n) + \frac{2}{\lim_{n \to \infty} a_n}) = \frac{1}{2} ( a +
+  \frac{2}{a}) $
+
+  $\implies 2 a^2 = a^+ 2 \implies a^2 = 2 \stackrel{a > 0}{\implies} a =
+  \sqrt{2}$
+
+  \paragraph{Aufgabe}
+  Finde ein Verfahren zur Berechnung von $\sqrt{13}$.
+
+  \subsection{Unendliche Reihen und Dezimalbrüche}
+  Sei $(a_k)$ eine Folge. Dann heißt $s_n := \sum_{k=0}^n a_k = a_0 + a_1 +
+  \ldots + a_n$ die $n$-te Partielsumme zur Folge $(a_k)$.
+
+  Der Grenzwert $\lim_{n \to \infty} s_n = \lim_{n \to \infty} \sum_{k=0}^n a_k
+  =: \sum_{k=0}^\infty a_k = a_0 + a_1 + a_2 + a_3 + \ldots $ heißt die
+  \textbf{Reihe} zur Folge $(a_k)$.
+
+  Im Falle, dass der Grenzwert gar nicht existiert, sagen wir, die Reihe \textbf{divergiere}.
+
+  \paragraph{Satz}
+  Für $|x| < 1$ gilt: $ \sum_{n=0}^\infty x^n = \frac{1}{1-x}$ („Geometrische Reihe“)
+
+  \subparagraph{Beispiel}
+  $x = \rfrac{1}{2}$
+
+  $\sum_{n=0}^\infty (\frac{1}{2})^n = 1 + \frac{1}{2} + \frac{1}{4} +
+  \frac{1}{8} + \ldots \stackrel{\text{Satz}}{=} \frac{1}{1 - \rfrac{1}{2}} = 2$
+
+  \subparagraph{Beweis}
+  Schon bekannt: $ \sum_{k=0}^n x^k = \frac{1-x^{n+1}}{1-x} $.\par
+  Damit ist $ \sum_{k=0}^{\infty} x^k = \lim_{n \to \infty} \frac{1-x^{n+1}}{1 -
+  x} = \frac{1 - \lim_{n\to\infty}x^{n+1}}{1-x} = \frac{1-0}{1-x} =
+  \frac{1}{1-x} \;\;\; \square$
+
+  \subparagraph{Beispiel}
+  $ \sum_{n = 1}^\infty \frac{1}{n} = 1 + \frac{1}{2} + \frac{1}{3} + \frac{1}{4}
+  + \ldots $ („\textit{harmonische Reihe}“) konvergiert nicht (in $\mathbb{R}$):
+  
+  $$ \frac{1}{3} + \frac{1}{4} \geq \frac{1}{4} + \frac{1}{4} = \frac{1}{2} $$
+  $$ \frac{1}{5} + \frac{1}{6} + \frac{1}{7} + \frac{1}{8} \geq \frac{4}{8} =
+  \frac{1}{2} $$
+  $$ \frac{1}{9} + \ldots + \frac{1}{16} \geq \frac{8}{16} = \frac{1}{2} $$
+
+  \textbf{Wir sehen}: Die Folge der Partialsummen ist unbeschränkt.
+
+  \paragraph{Warnung}
+  $ \lim_{k \to \infty} a_k = 0 \stackrel{\text{i. allg.}}{\Rightarrow}
+  \sum_{k=0}^\infty a_k$ konvergiert.
+
+  \paragraph{Satz}
+  $ \sum_{k=0}^\infty a_k$ konvergiert in $\mathbb{R} \implies \lim_{k \to
+    \infty} a_k = 0$
+
+  \subparagraph{Beweis}
+  Sei $ a := \sum_{k=0}^\infty a_k$. Sei $ \varepsilon > 0 $ vorgegeben.
+  Dann existiert ein $n_0$, so dass $ | \sum_{k=0}^{n-1} a_k -a | <
+  \frac{\varepsilon}{2} $ für alle $ n \geq n_0$.
+
+  Damit gilt:
+  
+  $ | a_n | = | \sum_{k = 0}^n a_k - \sum_{k=0}^{n-1} a_k | = | (\sum_{k=0}^n
+  a_k - a) - (\sum_{k=0}^{n-1} a_k - a) | \leq |\sum_{k=0}^n a_k - a| + |\sum_{k=0}^{n-1} a_k - a| < \frac{\varepsilon}{2} +
+  \frac{\varepsilon}{2} = \varepsilon $ für $n \geq n_0$.
+
+  \section{Zahlen als konvergente Reihen}
+  
+  Jede reelle Zahl $\alpha$ ist konvergente Reihe: $ \alpha = \sum_{k=0}^\infty
+  a_k \cdot 10^{-k}$, wobei $a_0 \in \Z ; a_k = \{0, \ldots, 9\}$ für $k > 0 $.
+
+  \paragraph{Beispiel}
+  $ \pi = 3 + 1 \cdot 10^{-1} + 4 \cdot 10^{-2} + 1 \cdot 10^{-3} + \ldots =
+  3,141\ldots$
+
+  \paragraph{Warnung}
+  $1,00000\ldots = 0,99999\ldots$
+  Die Dezimaldarstellung ist im Zweifelsfall nicht eindeutig.
+
+  \paragraph{Satz}
+  Die Reihe $\alpha$ beschreibt genau dann eine rationale Zahl, wenn die Folge
+  der $a_k$ (also die Dezimalbruchdarstellung) periodisch ist.
+
+  \subparagraph{Beispiel}
+  $0,142857142857\ldots = 0,\overline{142857}$ ist rational ($= \frac{1}{7}$)
+
+  $0,5 = 0,5\overline{0}$ ist rational ($ = \frac{1}{2}$)
+
+  $ 0,123456789101112131415\ldots $ ist irrational (da nicht periodisch)
+
+  \subparagraph{Beweis}
+  $\implies$: Sei $\alpha = \frac{u}{v}$ eine rationale Zahl: $ u \in \Z; v \in
+  \N_{>0}$
+
+  Bsp: $\frac{3}{7} = 0,\overline{428571} $ (Beispiel mit schriftlicher Division
+  an der Tafel)
+
+  Bei der schriftlichen Division tauchen höchstens $v$ viele Reste auf, das
+  heißt die Dezimalbruchdarstellung von $\alpha$ hat ist periodisch mit der
+  Periodelänge höchstens $v$.
+
+  $\impliedby$: Sei $\alpha$ periodisch, etwa $\alpha =
+  a_0,\,a_1\,a_2\,\overline{a_3\,a_4\,a_5}$
+
+  Dann ist $\alpha = a + a_1 10^{-1} + a_2 10^{-2} + (100 a_3 + 10 a_4 + a_5)
+  \cdot (10^{-5} + 10^{-8} + 10^{-11} + \ldots)$\;\;\;\footnote{ $ (10^{-5} + 10^{-8}
+    + 10^{-11} + \ldots) = 10^{-5} (1 + 10^{-3} +
+    10^{-6} + \ldots )$}
+  
+  \subparagraph{Beispiel}
+  $ 0,121212\ldots = \frac{12}{100} \cdot \frac{100}{99} = \frac{12}{99} =
+  \frac{4}{33} $
+
+  \subsubsection{Die Eulersche Zahl}
+  Sei $ x \in \mathbb{R}$.
+  Dann sei $ exp(x) := \sum_{n=0}^{\infty} = \frac{x^n}{n!} = 1 + x +
+  \frac{x^2}{2} + \frac{x^3}{6} + \ldots $
+
+  \paragraph{Bemerkungen}
+  \begin{itemize}
+    \item In der Analysis wird die Konvergenz für alle $x$ gezeigt.
+    \item Ebenfalls wird dort $ exp(x) = e^x)$
+  \end{itemize}
+
+  Die Zahl $e := exp(1) = \sum_{n = 0}^\infty \frac{1}{n!} = 1 + 1 + \frac{1}{2}
+  + \frac{1}{6} + \ldots = 2,7182818284\ldots$ heißt \textbf{eulersche Zahl}.
+
+  \paragraph{Satz}
+  $e$ ist irrational.
+
+  \subparagraph{Beweis}
+  \textbf{Annahme}:
+  $ e = \frac{a}{b} ; a,b \in \Z ; b > 0 $.
+  Sei $ m \geq b $ eine ganze Zahl. Dann $ b | m!$ .
+
+  Also $ \alpha := m! (e - \sum_{n_0}^{m} \frac{1}{n!}) = a \frac{m!}{b} -
+  \sum_{n=0}^m \frac{m!}{n!} \in \Z$.
+
+  Aber:
+  $$\alpha = \sum_{n=m+1}^{\infty} \frac{m!}{n!} \leq \sum_{n=m+1}^{\infty}
+  \frac{m!}{m! \cdot (m+1)^{n-m}} = \frac{1}{m+1} \cdot \sum_{k=0}^{\infty}
+  \frac{1}{(m+1)^k} = \frac{1}{m+1} \cdot \frac{1}{1 - \frac{1}{m+1}} =
+  \frac{1}{m}$$
+
+  \textbf{Widerspruch!} $\stackrel{0 < \alpha < 1}{\implies}$ $\alpha$ kann
+  nicht als ganze Zahl geschrieben werden. 
+
+
+  \section{Abzählbarkeit und Überabzählbarkeit}
+
+  Sei $ f : M \to N $ eine Abbildung\footnote{Widerspricht nicht, dass ein
+    Element aus $N$ nicht oder mehrfach zugeordnet wird}.
+
+  \paragraph{Definition}
+  $f$ heißt
+
+  \begin{enumerate}
+  \item \textbf{injektiv}, falls $ \forall x,y \in M : (f(x) = f(y) \Rightarrow
+    x = y) $
+  \item \textbf{surjektiv}, falls $ \forall z \in N \,\exists\; x \in M : f(x) =
+    z $
+    \item \textbf{bijektiv}, falls f \textit{injektiv} und \textit{surjektiv} ist.
+  \end{enumerate}
+
+  \paragraph{Definition}
+  Zwei Mengen $M$ und $N$ heißen \textbf{gleichmächtig}, falls eine Bijektion
+  $ f : M \Rightarrow N $ existiert.
+
+  Eine Menge $M$ heißt \textbf{abzählbar}, wenn sie gleichmächtig zu $ \Nzero $
+  ist.
+
+  Eine unendliche, nicht abzählbare Menge heißt \textbf{überabzählbar}.
+
+  \subparagraph{Beispiel}
+  $ \Nzero $ ist abzählbar. ($ 0 \mapsto 0, 1 \mapsto 1, 2 \mapsto 2, 3 \mapsto
+  3,\,\ldots$)
+
+  \subparagraph{Beispiel}
+  $ \Z $ ist abzählbar. ($ 0 \mapsto 0, 1 \mapsto 1, -1 \mapsto 2, 2 \mapsto 3,
+  -2 \mapsto 4, \ldots$)
+
+  \subparagraph{Exkurs: Gedankenexperiment – Hilberts Hotel}
+  Hotel mit unendlich vielen Zimmern, alle Zimmer sind belegt.
+  Ein Gast kommt hinzu. Kann dieser ein Zimmer bekommen?
+  Ja: Der Portier fordert alle Gäste auf, in das nächste Zimmer zu ziehen.
+
+  \subparagraph{Beispiel}
+  $ \mathbb{Q}$ ist abzählbar: $0, \frac{1}{1}, - \frac{1}{1}, \frac{2}{1},
+  -\frac{2}{1}, \frac{1}{2}, -\frac{1}{2}, \ldots$
+%  $$
+%    \begin{matrix}
+%      \frac{1}{1} & \frac{2}{1} & \frac{3}{1} & \frac{4}{1} & \frac{5}{1} \\
+%      \frac{1}{2} & \frac{2}{2} & \frac{3}{2} & \frac{4}{2} & \frac{5}{2} \\
+%      \frac{1}{3} & \frac{2}{3} & \frac{3}{3} & \frac{4}{3} & \frac{5}{3} \\
+%      \frac{1}{4} & \frac{2}{4} & \frac{3}{4} & \frac{4}{4} & \frac{5}{4} \\
+%      \frac{1}{5} & \frac{2}{5} & \frac{3}{5} & \frac{4}{5} & \frac{5}{5} 
+%    \end{matrix}
+%    $$
+
+  \paragraph{Satz (Cantor)}
+  $\mathbb{R}$ ist überabzählbar.
+  \subparagraph{Beweis}
+  Annahme: $\mathbb{R}$ ist abzählbar.
+  Dann gibt es eine Liste aller reeller Zahlen.
+
+  $ \alpha^{(0)} = a_0^{(0)}\,,\, a_1^{(0)} \, a^{(0)}_2 \, a_3^{(0)} \,
+  a_4^{(0)} \ldots \, $ \\
+  
+  $ \alpha^{(1)} = a_0^{(1)}\,,\, a_1^{(1)} \, a^{(1)}_2 \, a_3^{(1)} \,
+  a_4^{(1)} \ldots \, $ \\
+
+  $ \alpha^{(2)} = a_0^{(2)}\,,\, a_1^{(2)} \, a^{(2)}_2 \, a_3^{(2)} \,
+  a_4^{(2)} \ldots \, $ \\
+
+  $\quad \quad \quad \quad \vdots$ \\
+
+
+  In Dezimaldarstellung ohne Neunerperiode.
+
+
+  Dann betrachte die reelle Zahl $ \beta = b_0 \,,\, b_1 b_2 b_3 \ldots$ , wobei wir
+  die $ b_i$s so wählen, dass $ b_i \neq a_i^{(i)}$
+
+  Dann taucht $ \beta $ in der Liste gar nicht auf.
+
+  Somit \textbf{Widerspruch!}: $ \mathbb{R} $ ist überabzählbar.
+
+  Dieses Vorgehen heißt Cantorsches Diagonalargument.
+\end{document}

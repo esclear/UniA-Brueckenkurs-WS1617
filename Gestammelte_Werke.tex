@@ -1,0 +1,1544 @@
+\documentclass[14pt,a4paper]{article}
+
+\usepackage{setspace}
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[L]{Daniel Albert}
+\fancyfoot[C]{Alle Mitschriften ohne Garantie auf Korrektheit oder Vollständigkeit}
+\fancyfoot[R]{\thepage{} / \pageref{LastPage}}
+
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+
+\newcommand{\dotcup}{\ensuremath{\mathaccent\cdot\cup}}
+\newcommand*\rfrac[2]{{}^{#1}\!/_{#2}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\C}{\ensuremath{\mathbb{C}}}
+\newcommand{\Nzero}{\ensuremath{\N_0}}
+\newcommand{\iu}{{i\mkern1mu}}
+
+\begin{document}
+	\begin{center}
+		\Huge{\textbf{Brückenkurs – Gesammelte Mitschriften}}\\
+		\normalsize{Tag 3, 06.10.2016 – Tag 6, 11.10.2016}
+	\end{center}
+	\par
+
+	\section{Die natürlichen Zahlen und das Induktionsprinzip}
+	\subsection{Beispiel}
+		Von Tag 2:
+			\paragraph{Satz}
+				$$ \Sigma_{k=1}^{n} k = \frac{1}{2} \cdot n \cdot (n + 1) $$
+			\paragraph{Folgerung (\textit{Korollar})}
+				$$ \Sigma_{k=1}^{n} ( 2 \cdot k -1 ) = n^2 $$
+			\paragraph{Beweis}
+				$$ \Sigma_{k=1}^{n} (2k-1) = \Sigma_{k=1}^{2n} k - \Sigma_{k=1}^{n} 2k $$
+				Mit Formel aus Satz auf die Formel angewendet:
+				$$ \frac{1}{2} \cdot 2 \cdot n \cdot (2n+1) -2 \cdot \frac{1}{2} n(n+1) = 2n^2 + n - n^2 -n = n^2 $$
+				Es wird zuerst die Summe aller Zahlen von $1$ bis $2n$ addiert, danach die Summe aller geraden Zahlen abgezogen
+
+				Hier auch implizite Verwendung der Assoziativität und Kommutivität der Addition.
+
+	\subsection{Weiteres Beispiel}
+		\paragraph{Satz} Sei $ x \neq 1 $. Dann gilt: $\Sigma_{k=0}^{n} x^k = \frac{1-x^{n+1}}{1-x} $ („Geometrische Summe“)
+		\paragraph{Beispiel}
+			$$ 1 + 2 + 4 + \dots 2^{63} = \frac{1-2^{64}}{1-2} = 2^{64} - 1 = 18.446.744.073.709.551.615 $$
+		\paragraph{Beweis 1} Ansatz der vollständigen Induktion:
+			\subparagraph{$n=0$}
+				$ x^0 = 1 ; \frac{1-x^2}{1-x} = 1 $ Formel stimmt also für $n=0$
+			\subparagraph{$ n \implies n+1 $}
+				$$ \Sigma_{k=0}^{n+1} x^k = x^{n+1} + \Sigma_{k=0}^{n} x^k = (I.V)  x^{n+1} + \frac{1-x^{n+1}}{1-x} = \frac{x^{n+1}(1-x) + 1 -x^{n+1}}{1-x} = \frac{1-x^{n+2}}{1-x} $$
+		\paragraph{Beweis 2}
+			$$ \Sigma_{k=0}^n x^k = \frac{1-x^{n+1}}{1-x} \Leftrightarrow (1-x) \Sigma_{k=0}^n x^k = 1-x^{n+1} = \Sigma_{k=0}^{n} x^k - \Sigma_{k=0}^n x^{k+1} = \Sigma_{k=0}^n x^k - \Sigma_{k=1}^{n+1} x^k = x^0 - x^{n+1} = 1 - x^{n+1}  $$
+			Für $ x \neq 1 $.
+			q.e.d.
+	\subsection{Äquivalenz- und Induktionsprinzip}
+	\paragraph{Satz}
+		Jede nicht-leere Teilmenge von $ \mathbb{N}_0 $ besitzt ein kleinstes Element. („ $\mathbb{N}_0$ ist \textit{wohlgeordnet} “)
+	\paragraph{Beweis}
+		Sei $ M \subseteq \mathbb{N}_0$ ohne kleinstes Element. Wir wollen zeigen dass: $ M = \emptyset $, d.h. $ P = \{ n \in \mathbb{N}_0 | 0, 1, \dots, n \notin M \} = \mathbb{N}_0 $  % $P = \mathbb{N}_0 \setminus M = \mathbb{N}_0 $
+		Hierbei Anwendung des \textit{Peano-Axioms}:
+		\subparagraph{$0 \in P$}
+			Wäre $0 \notin P$, so wäre $0 \in M$, insbesondere kleinstes Element von $M$. Dies ist ein Widerspruch, also $0 \in P$.
+		\subparagraph{$ n \in P \implies n+1 \in P$}
+			Wäre $n+1 \notin P$. Dann wäre eine der Zahlen $ 0, \dots, n+1 \in M$.
+			Da aber nach Voraussetzung $n \in P$, ist $0, \dots, n \notin M$. Also $n+1 \in M$.
+			Insbesondere ist $n+1$ kleinstes Element. Widerspruch, also ist $n+1 \in P$.
+
+	\section{Die ganzen und die rationalen Zahlen}
+		\subsection{Relation}
+			Eine \textbf{Relation} auf einer Menge $M$ ist eine Teilmenge $ R \subseteq M \times M $
+			Wir schreiben $ x \sim y :\Leftrightarrow. (x,y) \in R$ für $x,y \in M$.
+
+			\paragraph{Beispiel} $ x \leq y $ auf $ \mathbb{N}_0$:
+
+				[Skizze: Punkte auf Gitter, $x,y \leq 4 \in \mathbb{N}_0$. Oberhalb und auf der Diagonale blaue Menge.]
+
+				\begin{tabular}{ c | c | c | c | c   c }
+					  & 0 & 1 & 2 & 3 & y \\
+					0 & x &   &   &   &   \\
+					1 & x & x & x & x &   \\
+					2 & x &   & x &   &   \\
+					3 & x &   &   & x &   \\
+					x &   &   &   &   &   \\
+				\end{tabular}
+			\paragraph{Definition}
+				Eine Relation auf $M$ heißt \textbf{Äquivalenzrelation}, falls sie:
+				\begin{enumerate}
+					\item \textbf{reflexiv} ist, d.h. $ x \sim x $ für alle $ x \in M$.
+					\item \textbf{symmetrisch} ist, d.h. $x \sim y \implies y \sim x $ für alle $ x,y \in M $.
+					\item \textbf{transitiv} ist, d.h. $ x \sim y \land y \sim z \implies x \sim z$ für alle $x,y,z \in M$.
+				\end{enumerate}
+			\paragraph{Beispiel}
+				Die Gleichheitsrelation auf einer Menge ist eine Äquivalenzrelation
+			\paragraph{Beispiel}
+				Sei $M$ eine Menge von Menschen. Die Relation „ist verwand mit“ (im Sinne von „gehört zur gleichen Familie“) ist eine Äquivalenzrelation.
+			\paragraph{Beispiel}
+				Sei $M$ eine Menge von Menschen. Die Relation „hat im gleichen Monat Geburtstag“ ist eine Äquivalenzrelation.
+
+				Dabei ist $ M = M_1 \dotcup M_2 \dotcup \dots \dotcup M_{12} $. Die $M_1$ heißen die \textbf{Äquivalenzklassen} der Relation und stehen hier für die Monate.
+
+			\paragraph{Beispiel}
+				Relation $ \sim $ auf $ Z $ mit $ x \sim y :\Leftrightarrow x-y $ gerade.
+				Ist reflexiv und symmetrisch.
+				ist transitiv? $ x \sim y, y \sim z \implies x-y$ gerade, $ y-z$ gerade. $\implies (x-y) + (y-z) = x-z$ gerade $\implies x \sim z $
+				Ist also Äquivalenzrelation.
+
+				\subparagraph{Äquivalenzklassen}
+					In diesem Beispiel: $ Z = \{Gerade Zahlen\} \dotcup \{Ungerade Zahlen\} $
+
+
+			\paragraph{Definition} Sei $ \sim $ eine Relation auf einer Menge $M$. Für $ x \in M $ heißt dann $ [x]_{(\sim)} := \{ y \in M | x \sim y \}$ die \textbf{Äquivalenzklasse} zu $x$.
+				\subparagraph{Beispiel}
+					$ [Peter]_{verwandt} = Peters Familie $
+			\paragraph{Satz}
+				Es gilt für alle Äquivalenzrelationen auf eine Menge $M$ mit $x,y \in M$:
+				\begin{enumerate}
+					\item $ x \in [x] $
+					\item $ x \sim y \implies [x] = [y] $
+					\item $ [x] \neq [y] \implies [x] \cap [y] = \emptyset $
+				\end{enumerate}
+			\paragraph{Beweis}
+				\begin{enumerate}
+					\item $ x \in [x] \Leftrightarrow x \sim x $ ok
+					\item Sei $x \sim y $ Zu \textbf{zeigen}: $ [x] = [y] $. \\
+						$ z \in [x] \Leftrightarrow x \sim z \implies^{x \sim y}_{y \sim x} y \sim z \Leftrightarrow z \in [y] $
+					\item Wir zeigen: $ [x] \cap [y] \neq \emptyset \implies [x] = [y] $ \\
+						Es existiert also $ z \in [x] \cap [y]$, d.h. $ z \in [x] $ und $ z \in [y] $, d.h. $ x \sim z$, $y \sim z \implies x \sim y \implies x] = [y]$.
+				\end{enumerate}
+				q.e.d.
+
+			\paragraph{Definition}
+				$x$ heißt \textbf{Repräsentant} seiner Äquivalenzklasse $ [x] $: \\
+				$ M = \dotcup [x]$. \{$x$ Repräsentantensystem\}
+
+			\paragraph{Definition}
+				Sei $R$ eine Äquivalenzrelation auf einer Menge $M$. Dann heißt $ \rfrac{M}{R} := \{ [x]_R | x \in R \} $ der \textbf{Quotioent von M nach R}.
+		\subsection{Konstruktion der ganzen Zahlen}
+			Erklärung ganzer Zahlen als Paar zweier natürlicher Zahlen. Dabei Subtraktion der Zahlen.
+			Beispiel: Kontostand zusammengesetzt aus Einzahlungen und Abhebungen.
+
+			$ ( Einzahlungen, Abhebungen) \sim (Einzahlungen', Abhebungen') \Leftrightarrow E + A' = E' + A $
+			Auf der Menge der Paare $(n, m)$ natürlicher Zahlen definieren wir die Relation $(n,m) \sim (a,b) :\Leftrightarrow n +b = m + a $ \\
+			Es ist $ \sim $ eine Äquivalenzrelation: Ist reflexiv und symmetrisch.
+			Transitivität: $$ (n,m) \sim (a,b) \land (a,b) \sim (u,v) \implies n+b = m+a \land a + v = b + u \implies u + b + a + v = m + a + b + u \implies n + v = m + u \implies (n, m) \sim (u, v) $$
+
+			Die Äquivalenzklasse zum Paar $(n,m)$ heißt $[n,m]$
+
+			\paragraph{Beispiel} $ [3,2] \sim [5,4] $
+
+			\paragraph{Definition}
+				$$ Z = \rfrac{\mathbb{N}_0 \times \mathbb{N}_0}{\sim} = \{ [n,m] \; | \; n,m \in \mathbb{N}_0 \} $$
+				Jeder natürlichen Zahl $n$ entspricht eine ganze Zahl $ [n, 0] $.
+				$ \to \mathbb{N}_0 \subseteq Z $ \\ $n \mapsto [n,0]$.
+
+			\subparagraph{Negative Zahlen}
+				$ - [n,m] = [m,n] $
+			\subparagraph{Beispiel}
+				$ n \in \mathbb{N}_0 \; ; \; -n = -[n,0]  = [0,n]$
+				Ist diese Relation wohldefiniert?
+				$ - [7,2] = [2,7] $
+				\subparagraph{Zu zeigen} $[n,m] \sim [a,b] \implies [m,n] \sim [b,a]$ \\
+					Begründung: Wenn $ [n,m] \sim [a,b] \Leftrightarrow n + b = m + a \Leftrightarrow m+a = n+b \Leftrightarrow [m,n] \sim [b,a] $
+			\subparagraph{Addition}
+				$ [n,m] + [a,b] := [n+a, m+b] $
+			\subparagraph{Multiplikation}
+				$ [m,n] \cdot [a,b] := [ma+nb, \; na+mb] $
+		\subsection{Rationale Zahlen}
+			Auf der Menge $ Z \times N_{>0} $ betrachten wir die Relation $(a,s) \sim (b,t) \Leftrightarrow a \cdot t = b \cdot s $
+			\paragraph{Rechnung} $\sim$ ist Äquivalenzrelation.
+			Die Äquivalenzklasse zu $(a,s)$ bezeichnen wir mit $\frac{a}{s}$. \\
+			$ \mathbb{Q} := \rfrac{\mathbb{Z} \times \mathbb{N}_0}{N}$
+			\paragraph{Addition}
+				$$ \frac{a}{s} + \frac{b}{t} := \frac{at + bs}{st} $$
+
+				$$ \frac{b'}{t'} = \frac{b}{t} \Leftrightarrow t b' = t' b \implies \frac{at + bs}{st} = \frac{at' + b's}{s t'} \Leftrightarrow t'b = t b' $$
+
+		\subsection{Binomialkoeffizienten}
+			Sei $x$ eine (reelle) Zahl, $ k \geq 0 $ natürliche Zahl.
+			Dann heißt $ \left(\!\begin{array}{c} x \\ k \end{array}\!\right) := \frac{x \cdot (x-1) \cdot \dots \cdot (x - k + 1)}{k!} $ der \textbf{Binomialkoeffizient} „x über k“.
+			\paragraph{Spezialfall}
+				Sei $ 0 \leq k \leq n $ eine natürliiche Zahl. Dann ist $ \left(\!\begin{array}{c} n \\ k \end{array}\!\right) = \frac{n!}{k!(n-k)!} $
+
+
+	\setcounter{section}{2}
+      \section{Binomialkoeffizienten}
+   	   $ k \in \mathbb{N}_0 : \binom{x}{k} = \frac{x \cdot (x-1) \cdot (x-2) \dots (x-k+1)}{k!} $
+
+   	   Dabei gilt:
+   	   $$ \binom{n}{0} = 1 ,\;\; \binom{0}{0} = 1,\;\; \binom{0}{k} = 0 $$
+
+   	   \paragraph{Spezialfall} $ 0 \leq k \leq n \in \mathbb{N}_0 $
+   		   $$ \binom{n}{k} = \frac{n!}{k! \cdot (n-k)!} \in \mathbb{Q} $$
+   		   Durch Experiment: $ \in \mathbb{N}_0 $
+
+   	   \paragraph{Aufgabe}
+   		   $ \binom{x}{k} = \binom{x-1}{k-1} + \binom{x-1}{k} $ für $ k \geq 1 $
+
+   		   [ Beispiel für rekursive Berechnung von $\binom{5}{3} $]
+   		   $$ \binom{5}{3} = \binom{4}{2} + \binom{4}{3} = \binom{3}{1} + \binom{3}{2} + \binom{3}{2} + \binom{3}{3} = \dots = \binom{0}{\dots} + \dots + \binom{0}{\dots} $$
+
+   	   \paragraph{Satz}
+   		   Seien $k,n \in \mathbb{N}_0$. Dann ist die Anzahl der $k$-elementigen Teilmengen einer $n$-elementigen Menge $M$ durch $\binom{n}{k}$ gegeben.
+
+   		   \subparagraph{Beweis mit Induktion über $n$}
+   			   $n=0$: $M = \emptyset $. Anzahl der $k$-elementigen Teilmengen von $M = \begin{cases} 1 & \text{für } k = 0 \\ 0 & \text{für } k > 0 \\ \end{cases} \stackrel{stimmt}{=} \binom{0}{k} $
+   			   $n => n+1$: Sei $M = \{a_0, a_1, \dots, a_n\}$ $(n+1)$-elementig.
+   			   Dann ist $ M' := {a_1, \dots, a_n} $ $n$-elementig.
+
+   			   Sei $ L \subseteq M $ eine $k$-elementige Teilmenge.
+   			   Dann ist entweder $ L = {a_0} \cup L' $ mit $ L' \subseteq (k-1)$-elementig oder $ L \subseteq M'$, $k$-elementig.\
+   			   und alle $k$-elementigen Teilmengen $L \subseteq M$ entstehen eindeutig auf diese Weise.\\
+   			   Damit ist die Anzahl der $k$-elementigen Teilmengen von $M \stackrel{IV}{=} \binom{n}{k-1} + \binom{n}{k} \stackrel{Aufg.}{=} \binom{n+1}{k} $
+
+   			   Fall $k = 0$ trivial, daher $k > 0$.
+
+   			   q.e.d.
+   	   \subsection{Anwendung}
+   		   $$ ( x + y) ^n = \Sigma_{k=0}^n \binom{n}{k} \cdot x^{n-k} \cdot y^k $$
+
+   		   \paragraph{Beispiel}
+   			   $$ (x + y)^2 = \binom{2}{0} x^2 y^0 + \binom{2}{1} x^1 y^1 + \binom{2}{2} x^0 y^2 = x^2 + 2xy + y^2 $$
+   			   $$ (x + y)^3 = \binom{3}{0} x^3 y^0 + \binom{3}{1} x^2 y^1 + \binom{3}{2} x^1 y^2 + \binom{3}{3} x^0 y^3 = x^3 + 3x^2y+3xy^2+y^3 $$
+
+   		   \paragraph{Begründung}
+   			   $$ (x+y)^n = (x+y)(x+y)\dots(x+y) = \Sigma n\text{-fache Produkte} = \Sigma_{k=0}^n \binom{n}{k} x^{n-k}y^k $$
+   %				$n$ Faktoren\quad
+
+   		   Verständnisfrage: Was ist $ \Sigma_{k=0}^n \binom{n}{k} \text{?} = |P(M)| = 2^n =  \text{Anzahl der Teilmengen einer n-elementigen Menge} $
+
+      \section{Der euklidische Algorithmus}
+   	   Im Folgenden: $ d,n \in \mathbb{N}_0 $
+   	   \subsection{Definition}
+   		   Die Zahl $d$ \textbf{teilt} $n$, geschrieben $d|n$, falls $n = b \cdot d$ für ein $b \in \mathbb{Z}$.
+   	   \paragraph{Beispiele}
+   		   $ 2 | 100 $, $ 11|165$, $-13|169$, $5 \text{X}21$.
+   	   \subsection{Regeln}
+   		   \begin{enumerate}
+   			   \item $1|n,\,\,n|n,\,\,d|0$
+   			   \item $0|d \implies d=0,\;d|1 \implies d = \pm 1$
+   			   \item $d|n, n|m \implies d|m$
+   			   \item $d|a, d|b \implies d|(ax + bx) \text{ für alle } x,y \in \mathbb{Z}$
+   			   \item $bd | bn,\, b \neq 0 \implies d|n$
+   			   \item $d|n, \, n \neq 0 \implies |d| \leq |n|$\,\,Jedes $n \neq 0$ hat nur endlich viele Teiler; insbesondere $1$.
+   			   \item $d|n,\,n|d \implies d = \pm n$
+   		   \end{enumerate}
+
+   		   \paragraph{Beweis von 4.}
+   			   Es gelte also $d|a, d|b$ d.h. $a=sd, b=td \text{ für } s,t \in \mathbb{Z}$
+   			   Damit ist $ax+by=sdx+tdy=(sx+ty)\cdot d$, also $d|ax+by$
+
+   		   \paragraph{Konsequenz}
+   			   Aus diesen Regeln ergibt sich, dass jede Zahl endlich viele Teiler hat, also haben je zwei $a,b \in \mathbb{Z}$ einen größten gemeinsamen Teiler, $ggT(a,b)$, wobei $ggT(0,0) := 0$.
+
+   		   \paragraph{Es gilt}
+   			   \begin{itemize}
+   				   \item$ggT(a,b) | a,\,\,\, ggT(a,b) | b$.
+   				   \item $d|a,\,\,\,d|b \implies d|ggT(a,b)$.
+   			   \end{itemize}
+
+   		   \paragraph{Beispiel}
+   			   $ggT(11,14) = 1,\,\, ggT(21,14) = 7,\,\, ggT(110, 140) = 10,\,\, ggT(210, 140) = 70$.
+
+   	   \subsection{Satz: Division mit Rest}
+   		   $ a,b \in \mathbb{Z},\,b \neq 0 $. Dann existieren eindeutige $ q,r \in \mathbb{Z} $ mit $ a = bq + r $ mit $ 0 \leq r < |b| $.
+   		   \paragraph{Beweis}
+   			   $ R = \{ a - bq\,\,|\,\,q \in \mathbb{Z} \} \cap \mathbb{N}_0 $ ist nicht leer.
+   			   Diese besitzt ein kleinstes Element, welches das gesuchte $ r = a - bq $ für das gewünschte $q$ ist.\\
+   			   Bleibt zu zeigen: $r < |b|$. Dies folgt aus der Minimalität von $r \in R$. \\
+   			   q.e.d.
+   		   \paragraph{Folgerung}
+   			   Seien $ a,b \in \Z$, $d=ggT(a,b) $. Dann $ (d) := \{d \cdot n \in \Z\} = \{ax + by | x,y \in \Z \} =: (a,b) $. \\
+   			   Insbesondere läßt sich $d$ in der Form $d = ax + by$ für gewisse $ x,y \in \Z$ schreiben.
+   			   (Beispiel: $ ggT(9, 6) = 3 = 9 \cdot 1 + 6 \cdot (-1) $)
+   		   \paragraph{Beweis}
+   			   \par
+   			   „$\supseteq$“
+   			   $ ax + by \in (d) \Leftrightarrow d|(ax + by) $ (wg. 4. und $d|a$, $d|b$)
+   			   \par
+   			   „$\subseteq$“
+   			   Es reicht zu zeigen, dass $ d \in (a,b) $.
+   			   Der Fall $ a=0 $ ist einfach: Also sei $a \neq 0$. \\
+   			   Die Menge $ M := {ax + by | x,y \in \Z} \cap \N_{\ge 1} $ ist nicht leer; damit besitzt sie ein kleinstes Element $m \ge 1$.
+   			   Wir wissen schon ( 4. ), dass $d|m$.
+   			   Division mit Rest liefert $ a = mq + r,\,\, 0 \le r < m $.
+
+   			   \subparagraph{Annahme}
+   				   $r > 0$. Dann ist $ r = a - mq \in M$ \textbf{!\;Widerspruch\;!} Also $ r = 0$, also $a = mq$, daher $m|a$.
+
+   				   Analog (mit $b$ anstelle von $a$) erhalten wir $m | b$, also ist $m$ gemeinsamer Teiler von $a$ und $b$.
+   				   Damit $m \le d$. Zusammen mit $ d \le m $ folgt $ d = m $.
+   				   Somit $ d \in (a,b) $.
+
+   				   $m\,|\,a, m\,|\,b \stackrel{iv}{\implies} m\,|\,ggT(a,b) $
+   				   $\square$
+
+   	   \subsection{Praktische Bestimmung des $ggT$}
+   		   \[
+   			   \begin{matrix}
+   				   117 & = & 3 & \cdot & 33 & + & 18 \\
+   					33 & = & 1 & \cdot & 18 & + & 15 \\
+   					18 & = & 1 & \cdot & 15 & + &  3 \\
+   					15 & = & 5 & \cdot &  3 & + &  0
+   			   \end{matrix}
+   		   \]
+
+   		   Verbleibende Zahl $ 3 = ggT(117, 33) $.
+   	   \subsection{Satz über den euklidischen Algorithmus}
+   		   Seien $a,b \in \Nzero,\, a \ge b \ne 0 $.\\
+   		   \[
+   			   \begin{matrix}
+   				   a       & = & q_1     & \cdot & b       & + & r_1 & 0 \le r_1 < b   \\
+   				   b       & = & q_2     & \cdot & r_1     & + & r_1 & 0 \le r_2 < r_1 \\
+   				   r_1     & = & q_3     & \cdot & r_2     & + & r_1 & 0 \le r_3 < r_2 \\
+   						   &   &         &       & \vdots  &   &     &                 \\
+   				   r_{n-2} & = & q_n     & \cdot & r_{n-1} & + & r_1 & 0 \le r_1 < b   \\
+   				   r_{n-1} & = & q_{n+1} & \cdot & r_n     & + & 0   &
+   			   \end{matrix}
+   		   \]
+
+      \section{Primzahlen}
+   	   \subsection{Definition}
+   		   Ein $p \in \Nzero$ heißt \textbf{Primzahl}, wenn sie genau zwei positive Teiler besitzt.
+   	   \subsection{Lemma von Euklid}
+   		   Seien $p$ eine Primzahl, $a,b \in \Z$. Dann: $ p\,|\,(a \cdot b) \implies p\,|\,a \land p\,|\,b $
+
+   		   \subsubsection{Beweis}
+   			   Sei $ d = ggT(p,a) $. Dann $ d | p $. Nach Voraussetzung ist dann $ d = 1 $ oder $ d = p $.
+   			   \paragraph{Fall 1: $d = p$}
+   				   Dann $ p | a $, da $ p = ggT(p, a) $.
+   			   \paragraph{Fall 2: $d = 1$}
+   				   Damit ist $ 1 = px + ay $ mit $ x,y \in \Z $. \\
+   				   $ \stackrel{b}{\implies} b = bpx + aby \stackrel{p | ab}{\implies} p | b $\\
+   				   $ \square $
+   	   \subsection{Fundamentalsatz der Arithmetik}
+   		   \paragraph{Satz}
+   			   Jede natürliche Zahl $n \ge 1$ besitzt eine eindeutige Primfaktorzerlegung („\textit{PFZ}“), d.h.\ es existieren eindeutig bestimmte Zahlen $ \nu_{p}(n) \in \Nzero $ mit $$ n = \prod_{\substack{p \in \mathbb{P}}} p^{\nu_{p}(n)}$$
+   		   \paragraph{Beispiel}
+   			   $ 60 = 2^2 \cdot 3^1 \cdot 5^1 \cdot 7^0 \dots $ \; hier bspw.: $ \nu_3(60) = 1 $
+
+   		   \paragraph{Beweis}
+   			   \subparagraph{Existenz}
+   				   Sei $ M = \{ n \in \N \text{ mit } n \ge 1 \text{ ohne } PFZ \} $. Zu zeigen: $ M = \emptyset $.
+   				   Sei $ n \in M $.\\
+   				   Dann ist jedenfalls $n$ keine Primzahl, also existieren $ 2 \le a,b < n $ mit $ n = ab $.
+   				   Damit muss $ a \in M \lor b \in M $.
+   				   Insbesondere ist $ n $ in $ M $ nicht kleinstes Element.
+
+   				   Also hat $ M $ kein kleinstes Element und $ M = \emptyset $.
+
+   			   \subparagraph{Eindeutigkeit}
+   				   Sei $ n = p_1 \cdot p_2 \dots p_r = q_1 \cdot q_2 \dots q_s $ mit $p_i, q_j $ Primzahlen.\\
+   				   $ p_1 \, | \, p_1 \dots p_r \implies p_1 \, | \, q_1 \dots q_s \stackrel{Euklid}{\implies} p_1 \, | \, q_j $ für ein $ j $. Da $p_1, q_j$ Primzahlen $\implies p_1 = q_j$.
+   				   Dann kürze mit $ p_1 ( = q_j ) $ und mache mit $ p_2 $ weiter, …
+
+
+	\setcounter{section}{5}
+    \section{Primzahlen}
+    \paragraph{Satz (Euklid)}
+    Es gibt undendlich viele Primzahlen.
+
+    \subparagraph{Beweis}
+    Seien $ p_0, \dots p_{n-1} $ Primzahlen.
+
+    Dann können wir eine Primzahl $p_n$
+    konstruieren mit $p_n \notin \{p_0, \dots, p_{n-1}\}$:
+    Dazu betrachte: $ e := p_0 \dots p_{n-1} + 1 = q_1 \dots q_s $ mit
+    Primzahlen $ q_1, \dots, q_s$ (PFZ)
+
+   %  Dabei Überlegung: $q_s$ teilt linke Seite, aber kein $p$ teilt die rechte
+   %  Seite (wg. der Addition $+1$ führt zu Rest 1).
+
+    Da die $P-i$ jeweils $e$ nicht teilen (Rest $1$!), die $q_j$ aber $e$ teilen,
+    sind die $q_j$ von $p_i$ verschieden.
+    Damit ist $p_n := q_i$ die gesuchte Primzahl.
+
+    \subparagraph{Beispiel}
+    $$
+    \begin{array}{r c c c l}
+      \emptyset & \rightsquigarrow & 1 + 1 & = & 2 = 2^1  \\
+    {2} & \rightsquigarrow & 2 + 1 & = & 3 = 3^1 \\
+    {2,3} & \rightsquigarrow & 2 \cdot 3 + 1 & = & 7 = 7^1 \\
+    {2,3,7} & \rightsquigarrow & 2 \cdot 3 \cdot 7 + 1 & = & 43 = 43^1 \\
+    {2, 3,7,43} & \rightsquigarrow & 2 \cdot 3 \cdot 7 \cdot 43 + 1 & = & 1807 = 13 \cdot
+      139 \\
+    \end{array}
+    $$
+
+    \paragraph{Primzahlsatz}
+    Sei $\pi(x)$ die Anzahl der Primzahlen $ \le x$.
+    Dann gilt: $\pi(x) \approx \frac{x}{\ln x}$, d.h.
+
+    $$ \lim_{x \to \infty} \rfrac{\pi(x)}{\rfrac{x}{\log x}} = 1$$
+
+    $$ \pi(1) = 0, \pi(2) = 1, \pi(3)=2, \pi(4) = 2, \pi(5)=3, \pi(7,5)=4,
+    \dotsb $$
+    % Diese Funktion ist eine Treppenfunktion mit Sprungstellen an den Primzahlen.
+
+    Riemannsche Vermutung: $ \Sigma_{n=1}^{\infty} \frac{1}{n^s} = \zeta(s) $
+
+    Sei $p_n$ die $n$-te Primzahl ($p_0 = 2, p_1=3, \dotsb $).
+    \subparagraph{Behauptung}
+    $ p_n < e^{2^n} $ (Konvention \footnote{$ (a^b)^c = a^{b \cdot c} $, $ a^{b^c}
+      =: a^{b^c}$})
+
+    \subparagraph{Beweis per Induktion über $n$}\par
+    \textbf{n=0}\par
+    $p_0 = 2; e^{2^0} = e^1 = e > 2$\par
+    \textbf{$n \implies n+1$}
+    $$p_{n+1} \stackrel{\text{Euklid}}{\leq} p_0 \dots p_n + 1 = e^{2^0 + 2^1 +
+      \dotsb + 2^n} + 1 = e^{2^{n+1}-1}+1 = e^{2^{n+1}}(\frac{1}{e} +
+    \frac{1}{e^{2^{n+1}}}) < e^{2^{n+1}} \;\; \square$$
+
+    \section{Algebraische Strukturen}
+    \subsection{Definition: Gruppe}
+    Eine Gruppe ist eine Menge $G$ zusammen mit einem ausgezeichneten Element $e
+    \in G$ und einer Verknüpfung \\ $ \circ : G \times G \to G, (g,h) \mapsto g \circ
+    h$, so dass folgende Axiome gelten:
+
+    \begin{enumerate}
+      \item[(G1)] Die Verknüpfung ist assoziativ: $ g \circ ( h \circ k ) = (g \circ
+   	 h) \circ k$ für $g,h,k \in G$
+      \item[(G2)] Das Element $e$ ist neutrales Element: $ e \circ g = g = g \circ
+   	 e$ für $g \in G$
+      \item[(G3)] Jedes Element besitzt ein Inverses: Für alle $ g\in G$ existiert
+   	 ein $h \in G$ mit $g \circ h = e = h \circ g$
+    \end{enumerate}
+
+    Die Gruppe heißt kommutativ (oder \textit{abelsch}), falls zusätzlich gilt:
+    \begin{enumerate}
+      \item[(G4)] Die Verknüpfung ist kommutativ: $g \circ h = h \circ g$ für alle
+   	 $g,h \in G$.
+    \end{enumerate}
+
+    \subsubsection{Beispiele}
+    \paragraph{Beispiel}
+    $ G = \mathbb{Z}, e = 0 \in \mathbb{Z}, \circ=+ : \Z \times \Z \to \Z $
+
+    \begin{enumerate}
+      \item[(G1)] $g+(h+k) = (g+h)+k$ für alle $g,h,k \in \Z$\\ \par
+      \item[(G2)] $0+g = g = g+0 $ für alle $g \in \Z$ \\ \par
+      \item[(G3)] $g + (-g) = 0 = (-g) + g$ für alle $g \in \Z$ \\ \par
+      \item[(G4)] $g+h = h+g$
+    \end{enumerate}
+
+    \paragraph{Beispiel} $(\mathbb{Q}, 0, +)$ ist genauso eine abelsche Gruppe.
+    \paragraph{Beispiel} $(\Nzero, 0, +)$ ist \textbf{keine Gruppe}.
+    \paragraph{Beispiel} $(\Z, 1, \cdot)$ ist \textbf{keine Gruppe}, da G3 nicht
+    erfüllt (z.B. existiert kein $n \in \Z mit 2 \cdot n = 1$).
+    \paragraph{Beispiel} $(\mathbb{Q}, 1, \cdot)$ ist keine Gruppe, da G3 nicht
+    erfüllt (Es existiert kein $x \in \mathbb{Q} \text{mit} 0 \cdot x=1$)
+    \paragraph{Beispiel} $(\mathbb{Q*}, 1, \cdot)$, wobei $\mathbb{Q}*:=\mathbb{Q}
+    \setminus {0}$ ist eine Gruppe
+    \paragraph{Beispiel} $(\Q \setminus \Z, 1, \cdot)$ ist alles, aber keine
+    Gruppe
+
+    \subsubsection{Aussage}
+    Sei $G$ eine Gruppe mit zwei neutralen Elementen $e, e'$. Dann gilt $e = e'$.
+
+    \paragraph{Beweis}
+    $e = e \circ e' = e'$, da $e$ neutral und $e'$ neutral. $\square$
+
+    \paragraph{Bemerkung}
+    Analog zeigt sich, dass das Inverse zu einem Element eindeutig bestimmt ist.
+
+    \subsubsection{Aussage}
+    Sei $G$ eine Gruppe. Seien $a,b \in G$ mit Inversen $a^{-1} \text{ bzw. }
+    b^{-1} \in G$.
+    Dann ist $b^{-1} \cdot a^{-1}$ invers zu $(a \circ b)$ \\ $=: ( a \circ
+    b)^{-1}$
+
+    \paragraph{Beweis}
+    $$ (b^{-1} \circ a^{-1}) \circ (a \circ b) = b^{-1} \circ (a^{-1} \circ a)
+   \circ b = b^{-1} \circ b = e $$
+    \subparagraph{Analog}
+    $$ (a \circ b) \circ (b^{-1} \circ a^{-1}) = \dotsb = e $$
+
+    \paragraph{Schreibweise}
+   %  $\circ$ ist Konvention, manchmal auch als $\cdot$ geschrieben.
+    Auch in abstrakten Gruppen schreiben wir häufig $\cdot$ statt $\circ$ für die
+    Verknüpfung und $1$ für das neutrale Element.
+    \textbf{Abkürzung} $ab := a \cdot b, a^{-1} := \text{Inverses zu a}$.
+
+    \paragraph{Aussage}
+    Sei $G$ eine (multiplikativ geschriebene) Gruppe. Für $ a \in G$ gilt dann
+    $(a^{-1})^{-1} = a$
+    \subparagraph{Beweis}
+    $a \cdot a^{-1} = 1 = a^{-1} \cdot a\;\;\;\square$
+
+    \subparagraph{Beispiel}
+    [ Gleichseitiges Dreieck mit gegen den Urzeigersinn nummerierten Ecken 1 - 3]\\
+    Symmetrien in der Ebene: $ \left\{ \begin{pmatrix} 1 & 2 & 3 \\ 1 & 2 &
+   	 3 \end{pmatrix}, \begin{pmatrix} 1 & 2 & 3 \\ 3 & 1 & 2 \end{pmatrix}, \begin{pmatrix} 1 & 2 & 3 \\ 2 &
+   	 3 & 1 \end{pmatrix} \right\} =: G$ \\
+    mit $e$, $\tau$, $\sigma$.\\
+    Seien $g,h \in G$. Dann sei $g \cdot h$ die Hintereinanderausführung von $h$
+    und danach $g$.
+
+    \subparagraph{Beispiel}
+    $$ \begin{pmatrix} 1 & 2 & 3 \\ 3 & 1 & 2 \end{pmatrix} \circ \begin{pmatrix}
+      1 & 2 & 3 \\ 2 & 3 & 1 \end{pmatrix} = \begin{pmatrix} 1 & 2 & 3 \\ 1 & 2 &
+      3 \end{pmatrix}$$
+    $\tau \circ \sigma = e$
+
+    Gruppentafel:\\
+    \begin{tabular}{ c | c | c | c }
+   	 a $\setminus$ b & $e$ & $\sigma$ & $\tau$ \\ \hline
+   	   $e$             & $e$ & $\sigma$ & $\tau$ \\ \hline
+   	   $\sigma$        & $\sigma$ & $\tau$ & $e$ \\ \hline
+   	   $\tau$          & $\tau$ & $e$ & $\sigma$ \\
+      \end{tabular}
+
+    \subparagraph{Beispiel}
+    [ Gleichseitiges Dreieck mit gegen den Urzeigersinn nummerierten Ecken 1 - 3]\\
+    Symmetrien im Raum: $$ \left\{
+      \begin{pmatrix} 1 & 2 & 3 \\ 1 & 2 & 3 \end{pmatrix},
+      \begin{pmatrix} 1 & 2 & 3 \\ 3 & 1 & 2 \end{pmatrix},
+      \begin{pmatrix} 1 & 2 & 3 \\ 2 & 3 & 1 \end{pmatrix},
+      \begin{pmatrix} 1 & 2 & 3 \\ 1 & 3 & 2 \end{pmatrix},
+      \begin{pmatrix} 1 & 2 & 3 \\ 3 & 2 & 1 \end{pmatrix},
+      \begin{pmatrix} 1 & 2 & 3 \\ 2 & 1 & 3 \end{pmatrix}
+    \right\}$$
+    mit $e$, $\tau$, $\sigma$, $\alpha_1$, $\alpha_2$, $\alpha_3$.
+
+    $\alpha_1 \circ \sigma = \alpha_2$, $\sigma \circ \alpha_1 = \alpha 3 \neq
+    \alpha_2 = \alpha1 \circ \sigma$
+    Also nicht abelsch / kommutativ.
+
+    $$ \alpha_1^2 = \alpha_1 \circ \alpha_1 = e \implies \alpha_1^{-1} =
+    \alpha_1$$
+
+    \paragraph{Definition: symmetrische Gruppe}
+    Die \textbf{symmetrische Gruppe in $n$ Buchstaben} ist die Gruppe der
+    Permutationen von ${1, \dots, n}$, geschrieben $S_n$, d.h. $S_n =
+    \left\{ \begin{pmatrix} 1 & 2 & \cdots & n \\ \sigma_1 & \sigma_2 & \cdots &
+   	 \sigma_n \end{pmatrix} | (\sigma_1, \dotsb, \sigma_n) \text{ Permutationen
+   	 von } (1, \dotsb, n) \right\}$
+
+    \subparagraph{Beispiel}
+    $\{\text{Dreiecks-Symmetrie im Raum}\} = S_3$
+
+    \subsubsection{Definition: Untergruppe}
+    Eine Teilmenge $U \subseteq G$ einer Gruppe $G$ heißt \textbf{Untergruppe},
+    falls (U1) $e \in U$, (U2) $g,h \in U \implies g \circ h \in U$, \\ (U3) $g \in U
+    \implies g^{-1} \in U$
+
+    \subparagraph{Beispiel}
+    $\{\text{Dreiecks-Symmetrien in der Ebene}\} \subseteq \{Dreiecks-Symmetrien im
+    Raum\}$
+    \subparagraph{Beispiel}
+    $\Z \subseteq (\Q, 0, +)$ ist Untergruppe
+
+    \subparagraph{Beispiel}
+    $\Nzero \subseteq (\Z, 0, +)$ ist keine Untergruppe.
+
+    \subsubsection{Definition: Kommutative Ringe}
+    Ein \textbf{kommutativer Ring} ist eine Menge $R$ zusammen mit zwei
+    ausgezeichneten Elementen $0$ und $1 \in R$ und zwei Verknüpfungen $ + : R \times R \mapsto R$ und $\cdot : R \times R \mapsto R$ so dass gilt:
+
+    \begin{enumerate}
+      \item[(R1)] $ \forall x,y,z \in R:   x + (y + z) = (x + y) + z $
+      \item[(R2)] $ \forall x \in R: x + 0 = x = 0 + x $
+      \item[(R3)] $ \forall x \in R \;\exists\; y \in R : x + y = 0 = y + x $
+      \item[(R4)] $ \forall x,y \in R : x + y = y + x $
+      \item[(R5)] $ \forall x,y,z \in R : x \cdot (y \cdot z) = (x \cdot y) \cdot
+   	 z $
+      \item[(R6)] $ \forall x \in R : x \cdot 1 = x = 1 \cdot x $
+      \item[(R7)] $ \forall x,y \in R: x \cdot y = y \cdot x $
+      \item[(R8)] $ \forall x,y,z \in R : x \cdot (y + z) = x \cdot y + x \cdot z
+   	 \land ( y + z) \cdot x = y \cdot x + u \cdot x $
+    \end{enumerate}
+
+    \paragraph{Beispiel}
+    $(\Z, 0, 1, +, \cdot)$
+
+    \paragraph{Beispiel}
+    $(\Q, 0, 1, +, \cdot)$
+
+
+    \paragraph{Beispiel}
+    \subparagraph{Menge der Polynome bis $X$ aus $\Z$}
+    $ \Z [ X ] = \{ a_nX^n + \dotsb + a_1X+a_0 \;\;|\;\; a_0, \dotsb, a_n \in \Z
+    \} $
+
+    \subparagraph{Beispiel}
+    $ ( \Z[X], 0, 1, +, \cdot )$
+
+    $ (R[X], 0, 1, +, \cdot) $ falls $R$ kommutativer Ring.
+
+    \subparagraph{Bemerkung}
+    Ist $(R, 0, 1, +, \cdot)$ ein kommutativer Ring, so ist $(R, 0, +)$ eine
+    abelsche Gruppe.
+
+    \paragraph{Definition}
+    Ist $R$ ein kommutativer Ring, so $ R* := \{ x \in R \;| \;\;\exists\; y \in R :
+    x \cdot y = 1 = y \cdot x \} $
+    Es ist $(R*, 1, \cdot)$ eine kommutative Gruppe, die \textbf{Einheitengruppe
+      von $R$}.
+    \subparagraph{Beispiel}
+    $ \Z* = \{ \pm 1\}, \Q* = \Q \setminus \{ 0 \} $
+
+
+    \paragraph{Definition: Körper}
+    Ein \textbf{Körper} $K$ der Menge ist ein kommutativer Ring für den Multiplikation
+    und Addition abelsch definiert sind.
+    Somit gelten für ihn die Axiome der abelschen Gruppen $(K,+,0)$ und $(K,
+    \cdot, 1)$ und das Distributivgesetz.
+    Außerdem ist definiert: $K* = K \setminus \{ 0 \}$
+
+    \subparagraph{Beispiel} $\Q$ und $\mathbb{R}$ sind Körper.
+
+    \subparagraph{Beispiel}
+    $ \Q( \sqrt{2} ) := \{ a + b \sqrt{2} \;|\; a,b \in \Q \} \subseteq
+    \mathbb{R}$ ist ein Unterkörper.
+
+    $$ 0 = 0 + 0 \sqrt{2} \;,\; 1 = 1 + 0 \sqrt{2} $$
+    % $$ (a + b ) $$
+
+    $$ \frac{1}{a+b\sqrt{2}} = \frac{a-b\sqrt{2}}{(a + b\sqrt{2})(a - b
+      \sqrt{2})} = \frac{a - b\sqrt{2}}{a^2 - 2b^2} = \frac{a}{a^2 -
+      2b^2} -  $$
+
+  \setcounter{section}{7}
+  \setcounter{subsection}{3}
+  \subsection{Beispiele für Ringe}
+  $\Z, \Q, \mathbb{R} \Z[X], \Q[X], \mathbb{R}[X]$ (alle nullteilerfrei)
+
+  \paragraph{Beispiel}
+  Sei $M$ eine Menge. Sei $R := P(M) = \{ N \; | \; N \subseteq M\}$.
+
+  Wir definieren: $A + B := ( A \cup B) \setminus (A \cap B)$, $A \cdot B = A
+  \cap B$
+
+  [Venn-Diagramm aus Menge $M$ mit $A+B$ und $A \cdot B$ markiert]
+
+  Sei $ 0 := \emptyset $, $ 1 := M $.
+  Dann ist $ ( R= P(M), 0, 1, +, \cdot ) $ ein kommutativer Ring.
+
+  Es gilt dann: $ -A = A $, insbesondere $ A + A = 2 \cdot A = 0 $
+
+  \paragraph{Bemerkung}
+  Dieser Ring ist für $ |M| \geq 2 $ nicht \textbf{nullteilerfrei}:
+
+  Seien $ A,B \in R ; A \neq \emptyset ; B \neq \emptyset ; A \cap B = \emptyset
+  $.
+  Dann gilt: $ A \dot B = 0$, aber $A \neq 0, B \neq 0$.
+
+  \paragraph{Anmerkung}
+  Im Ring $\Z$ gibt es immer eine eindeutige Primfaktorzerlegung.
+  Für $ \Q[X] $ gibt es irreduzible Polynome, die sich nicht als Produkt anderer
+  Polynome schreiben lassen:
+
+  $ x^2 - 1 = (x-1)(x+1) $ ist reduzibel.
+
+  $ X^2 + 1 $ hingegen ist irreduzibel.
+
+  $ x^3 - 1 = (x-1)(x^2+x+1) $ wurde in zwei irreduzible Polynome zerlegt.
+
+  \section{Rechnen mit Restklassen}
+  \subsection{Satz („9er Probe“)}
+  $ 9 \;| \; \sum_{j=0}^n a_j \cdot 10^j \Leftrightarrow 9 | \sum_{j=0}^n a_j $,
+  wobei $a_j \in \Z$.
+
+  \paragraph{Beispiel}
+  $ 9 | 123456789 \Leftrightarrow 9 | (1+2+3+4+5+6+7+8+9) \Leftrightarrow 9 | 45
+  $
+
+  \subsection{Definition: Kongruenz}
+  Sei $ n \in \Z $. Sind dann $a,b \in \Z$, so heißen $a$ und $b$
+  \textbf{kongruent modulo m}, falls $m | (a-b)$, d.h. der Rest der Division von
+  $a$ beziehungsweise $b$ durch $m$ ist gleich soweit $m \neq 0$.
+  Wir schreiben dann $ a \equiv b (m)$.
+
+  \paragraph{Beispiel}
+  $5 \equiv 7 (2), 8 \equiv 3 (5), 9 \equiv -1 (10), 4 \equiv 14 (1), -3 \equiv -3 (0)$
+
+  \paragraph{Proposition}
+  $ \equiv (m) $ ist eine Äquivalenzrelation.
+
+  \subparagraph{Beweis}
+  $$ a \equiv a (m) ; a \equiv b (m) \Rightarrow b \equiv a (m)$$
+  $$a \equiv b (m), b \equiv c (m) \Rightarrow a \equiv c (m) : m | (a-b), m|
+  (c-b) \Rightarrow \exists \, d,e \in \Z : a-b = dm, c-b=e, \Rightarrow
+  m|(c-a)$$
+
+  \subsection{Definition: Restklassen}
+  Die Äquivalenzklassen modulo $m$ heißen \textbf{Restklassen modulo m}.
+
+  \paragraph{Beispiel}
+  $ m = 3 $
+
+  $ [0]_3 = \{ \dotsb, -3, 0, 3, 6, \dotsb \} $ \par
+  $ [1]_3 = \{ \dotsb, -2, 1, 4, 7, \dotsb \} = [4]_3 $
+
+  \paragraph{Proposition}
+  $ a \equiv a' (m), b \equiv b' (m)$.
+  Dann gilt:
+  \begin{enumerate}
+    \item $ a + b \equiv a' + b' (m) $
+    \item $a \cdot b \equiv a' \cdot b' (m) $
+  \end{enumerate}
+
+  \subparagraph{Beweis}
+  \begin{itemize}
+    \item $ (a+b) - (a' + b') = (a - a') + (b - b')$ ist durch $m$ teilbar, also 1.
+    \item $ a \cdot b - a' \cdot b' = a \cdot b - a' \cdot b + a'\cdot b - a'
+      \cdot b' = (a - a') \cdot b + a'(b - b') $ ist durch m teilbar, also 2.
+  \end{itemize}
+
+  % TODO: Überschrift?
+  \subsection{Der Körper $\mathbb{F}_3$}
+
+  Damit können wir definieren: $ [a]_m + [b]_m := [a + b]_m$ und $[a]_m \cdot [b]_m
+  := [ a \cdot b ]_m$.
+
+  Die Mege der Restklassen modulo m $ \rfrac{\Z}{\equiv_{(m)}} $ bezeichnen wir auch
+  mit $ \rfrac{\Z}{(m)}$
+
+  Es ist $ \left( \rfrac{\Z}{(m)}, [0]_m, [1]_m, +, \cdot \right) $ ein kommutativer Ring,
+  der \textbf{Restklassenring modulo m}.
+
+  \subparagraph{Beispiel}
+  $m=3$
+
+  \begin{tabular}{c || c | c | c}
+     +  & [0] & [1] & [2] \\ \hline \hline
+    [0] & [0] & [1] & [2] \\ \hline
+    [1] & [1] & [2] & [0] \\ \hline
+    [2] & [2] & [0] & [1]
+  \end{tabular}
+  \begin{tabular}{c || c | c | c}
+    $\cdot$ & [0] & [1] & [2] \\ \hline \hline
+    [0] & [0] & [0] & [0] \\ \hline
+    [1] & [0] & [1] & [2] \\ \hline
+    [2] & [0] & [2] & [1]
+  \end{tabular}
+
+  Dieser Körper wird $\mathbb{F}_3$ genannt.
+
+  \subsection{Beweis (9er Probe)}
+  $$ 9 | \sum_{j=0}^n a_j \cdot 10^j \Leftrightarrow \sum_{j=0}^n a_j \cdot
+  10^j \equiv 0 (9) \Leftrightarrow \sum_{j=0}^n a_j \cdot 1^j \equiv 0 (9)
+  \Leftrightarrow 9 | \sum_{j=0}^n a_j  $$
+
+  \section{Konvergente und divergente Folgen}
+  \paragraph{Beispiele für Folgen}
+  \begin{itemize}
+    \item $1,3,5,7,9,11,13, \dotsb$
+    \item $1,4,9,16,25, \dotsb$
+    \item $1,3,2,4,3,5,4,6,5,7,6,8, \dotsb$
+  \end{itemize}
+
+  \paragraph{Definition}
+  Eine \textbf{Folge} $a$ (reeller Zahlen) ist eine Abbildung $ a : \Nzero
+  \to \mathbb{R}, n \mapsto a_n $
+
+  Für diese Abbildung schreiben wir auch $ (a_n)_n \in \Nzero$.
+
+
+  \subparagraph{Beispiele}
+  \begin{itemize}
+    \item $a_n = n :  (a_n)_{n \in \Nzero}=(0,1,2,3,\dotsb)$
+    \item $b_n = \frac{1}{n} : (b_n)_{n\in \N_{\geq 1}} = (1, \frac{1}{2},
+        \frac{1}{3}, \frac{1}{4} \dotsb ) $
+    \item $c_n = \frac{(-1)^n}{n} : (c_n)_{n \in \N_{\geq 1}} = (-1,
+      \frac{1}{2}, -\frac{1}{3}, \frac{1}{2}, \dotsb)$
+    \end{itemize}
+
+    \subparagraph{Beispiel: Fibonacci-Folge}
+    $$ (F_n)_{n \geq 0} \text{ , wobei } F_0=0, F_1=1, F_n+2 = F_n + F_{n+1} $$
+    $$ \rightsquigarrow (F_n){_{n \geq 0}} = (0, 1, 1, 2, 3, 5, 8, 13, 21, 34,
+    \dotsb)$$
+
+    $$ x^2 = 2y^2 + 1 : (3,2); (17,12); (99,70), \dotsb $$
+
+    $$ \rightarrow \text{ Folge: } \frac{3}{2}, \frac{17}{12}, \frac{99}{70},
+    \dotsb \rightsquigarrow \sqrt{2} $$
+
+    \paragraph{Definition}
+    Eine Folge $(a_n)_{n \geq 0} $ heißt \textbf{konvergent mit Grenzwert $a$},
+    falls $ \forall \varepsilon > 0 \,\exists\, n_0 : \forall n \geq n_0 : | a_n
+    - a | < \varepsilon $
+    Wir schreiben dann: $ \lim_{n \to \infty} a_n = a $
+
+    \subparagraph{Beispiel}
+    $ (b_n) = (\frac{1}{n}) $.
+    $ \lim_{n \to \infty} \frac{1}{n} = 0 $.
+
+    Zu untersuchen: $ | \frac{1}{n} - 0 | = \frac{1}{n} < \varepsilon $.
+
+    Sei $\varepsilon > 0$ vorgegeben. Dann wähle $ n_0 \in \N_{\geq 1} $ mit
+    $\frac{1}{n_0} < \varepsilon $. Für $n \geq n_0 $ gilt dann: $ \frac{1}{n}
+    \leq \frac{1}{n_0} <  \varepsilon $
+
+    \paragraph{Definition}
+    Eine Folge $(a_n)$, für die kein $a$ mit $\lim_{n \to \infty} a_n = a$
+    existiert, heißt \textbf{divergent}.
+
+    \subparagraph{Beispiel}
+    $ (a_n) = (-1)^{n} : 1, -1, 1, -1, \dotsb $ divergiert.
+
+    Annahme: $a$ wäre Grenzwert. Dann gäbe es insbesondere zu $ \varepsilon =
+    \frac{1}{2} $ ein $n_0$ mit $ |a_n - a| < \frac{1}{2} $ für $ n \geq n_0$.
+
+    Damit $ | a_{n_0} - a | + | a_{n_0 + 1} - a | < 1 $.
+
+    \subsection{Einschub: Dreiecksungleichung}
+    $ \forall x,y \in \mathbb{R} : |x+y| \leq |x| + |y| $
+
+    \paragraph{Beweis}
+    $$  x \leq |x| ,  y \leq |y| \Rightarrow   x+y  \leq |x| + |y| $$
+    $$ -x \leq |x| , -y \leq |y| \Rightarrow -(x+y) \leq |x| + |y| $$
+    $$ \implies |x+y| \leq |x| + |y| \;\;\;\square $$
+
+    \subsection*{Fortsetzung}
+    Nach Dreiecks-Ungleichung: $ | a_{n_0} - a + (a - a_{n_0 + 1}) | < 1 $, also
+    $ | a_{n_0} - a_{n_0 + 1} | < 1 $
+
+    Widerspruch! Die Funktion divergiert also.
+
+    \subsection{}
+    \paragraph{Proposition}
+    Sind $(a_n)$ und $(b_n)$ Folgen mit $ \lim_{n \to \infty}a_n = a,\; \lim_{n
+      \to \infty}b_n = b $ so gilt:
+
+    \begin{enumerate}
+      \item $ \lim_{n\to\infty}(a_n + b_n) = \lim_{n \to\infty} a_n +
+        \lim_{n\to\infty} b_n $
+      \item $ \lim_{n\to\infty} (a_n \cdot b_n) = ( \lim_{n \to\infty} a_n \cdot
+          \lim_{n\to\infty} b_n ) $
+      \item $ \lim_{n\to\infty} \frac{a_n}{b_n} = \frac{\lim_{n\to\infty}
+          a_n}{\lim_{n\to\infty} b_n}$, falls $ b \neq 0$
+    \end{enumerate}
+
+    \subparagraph{Beispiel}
+    $$ \lim_{n\to\infty} \frac{2n^2-3}{n^2+n+1} = \lim_{n\to\infty}
+    \frac{2 - \frac{3}{n^2}}{1 + \frac{1}{n} + \frac{1}{n^2}} = \frac{
+      \lim_{n\to\infty} (2 - \frac{3}{n^1})}{ \lim_{n\to\infty} (1 + \frac{1}{n}
+      + \frac{1}{n^2}) } = \frac{\lim_{n\to\infty} 2 + \lim_{n\to\infty} (-
+      \frac{3}{n^2})}{\lim_{n\to\infty} 1 + \lim_{n\to\infty} \frac{1}{n} +
+      \lim_{n\to\infty} \frac{1}{n^2}} = \frac{2 + 0}{1 + 0 + 0} = 2$$
+
+
+    \subparagraph{Beweis zu \text{1.}}
+    Zu zeigen: $ \forall \varepsilon > 0 \exists n_0 : \forall n \geq n_0 : |a_n
+    + b_n - a - b| < \varepsilon $
+
+    Sei $\varepsilon > 0 $ vorgegeben.
+
+    Da $ \lim_{n\to\infty} a_n = a $ und $\lim_{n\to\infty} b_n = b$ existieren
+    $n_1, n_2$ mit $ \forall n \geq n_1 : | a_n - a | < \frac{\varepsilon}{2} $
+    und $ \forall n \geq n_2 : | b_n - b | < \frac{\varepsilon}{2} $
+
+    Für $ n \geq max(n_1, n_2) = n_0 : |a_n + b_n -a - b | \stackrel{}{\leq} |a_n - a| + |b_n - b| <
+    \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon $
+
+    \subsection{Beispiel: Fibonacci-Folge, die Zweite}
+    $ F_0 = 0, F_1 = 1, F_2 = 1, F_3 = 2, F_4 = 3, 5, 8, 13, 21, \dotsb $
+
+    $$ \frac{F_{n+1}}{F_n} : \frac{1}{1}, \frac{2}{1}, \frac{3}{2},
+    \frac{5}{3}, \frac{8}{5}, \dotsb \stackrel{?}{\to} \phi := \frac{1}{2}(1 +
+    \sqrt{5}) $$
+
+    \paragraph{Satz (Bichet)}
+    Es gilt: $F_n = \frac{1}{\sqrt{5}} (\varphi^n - \overline{\varphi}^n) $, wobei $
+    \overline{\varphi} := \frac{1}{2}(1-\sqrt{5}) $
+
+    \paragraph{Korollar}
+    $$ \lim_{n\to\infty} \frac{F_{n+1}}{F_n} = \varphi$$
+
+    \paragraph{Beweis}
+    $$ \lim_{n\to\infty} \frac{F_{n+1}}{F_n} = \lim_{n\to\infty}
+    \frac{\varphi^{n+1} - \overline{\varphi}^{n+1}}{\varphi^{n} -
+      \overline{\varphi}^{n}} = \lim_{n\to\infty} \frac{\varphi}{1} = \varphi$$
+
+  \paragraph{Satz}
+  Die Folge $(x^k)_{k \in \Nzero}$ konvergiert für $ |x| < 1 $ gegen $0$.
+  \subparagraph{Beweis}
+  Zu betrachten: Abstand $x^k$ zu $0$ für große $ k \to |x^k|$
+  Wir müssen $ |x^k-0| = |x|^k $ abschätzen.
+  Ohne Beschränkung der Allgemeinheit sei $ 0 \leq x < 1 $.
+
+  Da $x < 1 $, ist $\frac{1}{x} = 1 + y$ für $y>0$.
+  Damit ist $\frac{1}{x^n} = (1+y)^n = 1 + 1 + \binom{n}{2} y^2 + \ldots +
+  \binom{n}{n} y^n \geq 1 + n \cdot y$
+  
+  Also $ x^n \leq \frac{1}{1+n \cdot y} < \frac{1}{n \cdot y} $
+  Ist also $ \varepsilon > 0 $ vorgegeben, so wähle $n_0 \geq
+  \frac{1}{\varepsilon y}$.
+
+  Für alle $ n \geq n_0 $ ist dann $ |x^n| < \varepsilon_0$
+
+  \paragraph{Fibonacci-Satz}
+  $ \varphi := \frac{1}{2} ( 1 + \sqrt{5} ) , \overline{\varphi} :=
+  \frac{1}{2}(1-\sqrt{5})$.
+  Dann gilt: $ F_n = \frac{1}{\sqrt{5}} (\varphi^n - \overline{\varphi}^n) $
+
+  \subparagraph{Beweis}
+  Es gilt: $ \varphi^2 = \varphi + 1$ und $\overline{\varphi}^2 =
+  \overline{\varphi} + 1$, also $X^2 -X-1 = (X - \varphi)(X -
+  \overline{\varphi}) $
+
+  Dann Induktion über $n$:
+
+  \textbf{n = 0}: $ F_0 = 0 \stackrel{\checkmark}{=} \frac{1}{\sqrt{5}}(\varphi^0
+  - \overline{\varphi}^0) $ 
+
+  \textbf{n = 1}: $ F_1 = 1 \stackrel{\checkmark}{=} \frac{1}{\sqrt{5}}(\varphi^1
+  - \overline{\varphi}^1) $
+
+  \textbf{n, n+1 $\rightarrow$ n + 2}:\\
+  $$ F_n + F_{n + 1} \stackrel{IV}{=}
+  \frac{1}{\sqrt{5}} (\varphi^n - \overline{\varphi}^n) + (\varphi^{n+1} -
+  \overline{\varphi}^{n+1}) = \frac{1}{\sqrt{5}} \left(\varphi^n (1 + \varphi) -
+    \overline{\varphi}^n(1 + \overline{\varphi} ) \right) = \frac{1}{\sqrt{5}}
+  (\varphi^n \varphi^2 - \overline{\varphi}^n \overline{\varphi}^2) =
+  \frac{1}{\sqrt{5}} (\varphi^{n+2} - \overline{\varphi}^{n+2}) \;\;\;
+  \square $$
+
+  \subsection{Heron-Verfahren}
+  Sei $a_0 = 1, a_{n+1} = \frac{1}{2} ( a_n + \frac{2}{a_n}) $
+
+  $a_0 = 1 ; a_1 = \frac{3}{2} ; a_2 = \frac{17}{12} = 1,41\overline{6} ; a_3 = \frac{577}{408} = 1,414215\ldots $
+
+  \paragraph{Vermutung}
+  Die Folge $ (a_n)_{n \geq 0}$ konvergiert gegen $\sqrt{2} = 1,414213562\ldots $
+
+  \paragraph{Beweisskizze}
+  Wir zeigen unter der Annahme, dass die Folge konvergiert, dass \\
+  $ a := \lim_{n\to \infty} a_n = \sqrt{2} : a = \lim_{n \to \infty} a_{n+1} =
+  \lim_{n \to \infty} \frac{1}{2}(a_n + \frac{2}{a_n}) = \frac{1}{2} (( \lim_{n
+    \to \infty} a_n) + \frac{2}{\lim_{n \to \infty} a_n}) = \frac{1}{2} ( a +
+  \frac{2}{a}) $
+
+  $\implies 2 a^2 = a^+ 2 \implies a^2 = 2 \stackrel{a > 0}{\implies} a =
+  \sqrt{2}$
+
+  \paragraph{Aufgabe}
+  Finde ein Verfahren zur Berechnung von $\sqrt{13}$.
+
+  \subsection{Unendliche Reihen und Dezimalbrüche}
+  Sei $(a_k)$ eine Folge. Dann heißt $s_n := \sum_{k=0}^n a_k = a_0 + a_1 +
+  \ldots + a_n$ die $n$-te Partielsumme zur Folge $(a_k)$.
+
+  Der Grenzwert $\lim_{n \to \infty} s_n = \lim_{n \to \infty} \sum_{k=0}^n a_k
+  =: \sum_{k=0}^\infty a_k = a_0 + a_1 + a_2 + a_3 + \ldots $ heißt die
+  \textbf{Reihe} zur Folge $(a_k)$.
+
+  Im Falle, dass der Grenzwert gar nicht existiert, sagen wir, die Reihe \textbf{divergiere}.
+
+  \paragraph{Satz}
+  Für $|x| < 1$ gilt: $ \sum_{n=0}^\infty x^n = \frac{1}{1-x}$ („Geometrische Reihe“)
+
+  \subparagraph{Beispiel}
+  $x = \rfrac{1}{2}$
+
+  $\sum_{n=0}^\infty (\frac{1}{2})^n = 1 + \frac{1}{2} + \frac{1}{4} +
+  \frac{1}{8} + \ldots \stackrel{\text{Satz}}{=} \frac{1}{1 - \rfrac{1}{2}} = 2$
+
+  \subparagraph{Beweis}
+  Schon bekannt: $ \sum_{k=0}^n x^k = \frac{1-x^{n+1}}{1-x} $.\par
+  Damit ist $ \sum_{k=0}^{\infty} x^k = \lim_{n \to \infty} \frac{1-x^{n+1}}{1 -
+  x} = \frac{1 - \lim_{n\to\infty}x^{n+1}}{1-x} = \frac{1-0}{1-x} =
+  \frac{1}{1-x} \;\;\; \square$
+
+  \subparagraph{Beispiel}
+  $ \sum_{n = 1}^\infty \frac{1}{n} = 1 + \frac{1}{2} + \frac{1}{3} + \frac{1}{4}
+  + \ldots $ („\textit{harmonische Reihe}“) konvergiert nicht (in $\mathbb{R}$):
+  
+  $$ \frac{1}{3} + \frac{1}{4} \geq \frac{1}{4} + \frac{1}{4} = \frac{1}{2} $$
+  $$ \frac{1}{5} + \frac{1}{6} + \frac{1}{7} + \frac{1}{8} \geq \frac{4}{8} =
+  \frac{1}{2} $$
+  $$ \frac{1}{9} + \ldots + \frac{1}{16} \geq \frac{8}{16} = \frac{1}{2} $$
+
+  \textbf{Wir sehen}: Die Folge der Partialsummen ist unbeschränkt.
+
+  \paragraph{Warnung}
+  $ \lim_{k \to \infty} a_k = 0 \stackrel{\text{i. allg.}}{\Rightarrow}
+  \sum_{k=0}^\infty a_k$ konvergiert.
+
+  \paragraph{Satz}
+  $ \sum_{k=0}^\infty a_k$ konvergiert in $\mathbb{R} \implies \lim_{k \to
+    \infty} a_k = 0$
+
+  \subparagraph{Beweis}
+  Sei $ a := \sum_{k=0}^\infty a_k$. Sei $ \varepsilon > 0 $ vorgegeben.
+  Dann existiert ein $n_0$, so dass $ | \sum_{k=0}^{n-1} a_k -a | <
+  \frac{\varepsilon}{2} $ für alle $ n \geq n_0$.
+
+  Damit gilt:
+  
+  $ | a_n | = | \sum_{k = 0}^n a_k - \sum_{k=0}^{n-1} a_k | = | (\sum_{k=0}^n
+  a_k - a) - (\sum_{k=0}^{n-1} a_k - a) | \leq |\sum_{k=0}^n a_k - a| + |\sum_{k=0}^{n-1} a_k - a| < \frac{\varepsilon}{2} +
+  \frac{\varepsilon}{2} = \varepsilon $ für $n \geq n_0$.
+
+  \section{Zahlen als konvergente Reihen}
+  
+  Jede reelle Zahl $\alpha$ ist konvergente Reihe: $ \alpha = \sum_{k=0}^\infty
+  a_k \cdot 10^{-k}$, wobei $a_0 \in \Z ; a_k = \{0, \ldots, 9\}$ für $k > 0 $.
+
+  \paragraph{Beispiel}
+  $ \pi = 3 + 1 \cdot 10^{-1} + 4 \cdot 10^{-2} + 1 \cdot 10^{-3} + \ldots =
+  3,141\ldots$
+
+  \paragraph{Warnung}
+  $1,00000\ldots = 0,99999\ldots$
+  Die Dezimaldarstellung ist im Zweifelsfall nicht eindeutig.
+
+  \paragraph{Satz}
+  Die Reie $\alpha$ beschreibt genau dann eine rationale Zahl, wenn die Folge
+  der $a_k$ (also die Dezimalbruchdarstellung) periodisch ist.
+
+  \subparagraph{Beispiel}
+  $0,142857142857\ldots = 0,\overline{142857}$ ist rational ($= \frac{1}{7}$)
+
+  $0,5 = 0,5\overline{0}$ ist rational ($ = \frac{1}{2}$)
+
+  $ 0,123456789101112131415\ldots $ ist irrational (da nicht periodisch)
+
+  \subparagraph{Beweis}
+  $\implies$: Sei $\alpha = \frac{u}{v}$ eine rationale Zahl: $ u \in \Z; v \in
+  \N_{>0}$
+
+  Bsp: $\frac{3}{7} = 0,\overline{428571} $ (Beispiel mit schriftlicher Division
+  an der Tafel)
+
+  Bei der schriftlichen Division tauchen höchstens $v$ viele Reste auf, das
+  heißt die Dezimalbruchdarstellung von $\alpha$ hat ist periodisch mit der
+  Periodelänge höchstens $v$.
+
+  $\impliedby$: Sei $\alpha$ periodisch, etwa $\alpha =
+  a_0,\,a_1\,a_2\,\overline{a_3\,a_4\,a_5}$
+
+  Dann ist $\alpha = a + a_1 10^{-1} + a_2 10^{-2} + (100 a_3 + 10 a_4 + a_5)
+  \cdot (10^{-5} + 10^{-8} + 10^{-11} + \ldots)$\;\;\;\footnote{ $ (10^{-5} + 10^{-8}
+    + 10^{-11} + \ldots) = 10^{-5} (1 + 10^{-3} +
+    10^{-6} + \ldots )$}
+  
+  \subparagraph{Beispiel}
+  $ 0,121212\ldots = \frac{12}{100} \cdot \frac{100}{99} = \frac{12}{99} =
+  \frac{4}{33} $
+
+  \subsubsection{Die Eulersche Zahl}
+  Sei $ x \in \mathbb{R}$.
+  Dann sei $ exp(x) := \sum_{n=0}^{\infty} = \frac{x^n}{n!} = 1 + x +
+  \frac{x^2}{2} + \frac{x^3}{6} + \ldots $
+
+  \paragraph{Bemerkungen}
+  \begin{itemize}
+    \item In der Analysis wird die Konvergenz für alle $x$ gezeigt.
+    \item Ebenfalls wird dort $ exp(x) = e^x)$
+  \end{itemize}
+
+  Die Zahl $e := exp(1) = \sum_{n = 0}^\infty \frac{1}{n!} = 1 + 1 + \frac{1}{2}
+  + \frac{1}{6} + \ldots = 2,7182818284\ldots$ heißt \textbf{eulersche Zahl}.
+
+  \paragraph{Satz}
+  $e$ ist irrational.
+
+  \subparagraph{Beweis}
+  \textbf{Annahme}:
+  $ e = \frac{a}{b} ; a,b \in \Z ; b > 0 $.
+  Sei $ m \geq b $ eine ganze Zahl. Dann $ b | m!$ .
+
+  Also $ \alpha := m! (e - \sum_{n_0}^{m} \frac{1}{n!}) = a \frac{m!}{b} -
+  \sum_{n=0}^m \frac{m!}{n!} \in \Z$.
+
+  Aber:
+  $$\alpha = \sum_{n=m+1}^{\infty} \frac{m!}{n!} \leq \sum_{n=m+1}^{\infty}
+  \frac{m!}{m! \cdot (m+1)^{n-m}} = \frac{1}{m+1} \cdot \sum_{k=0}^{\infty}
+  \frac{1}{(m+1)^k} = \frac{1}{m+1} \cdot \frac{1}{1 - \frac{1}{m+1}} =
+  \frac{1}{m}$$
+
+  \textbf{Widerspruch!} $\stackrel{0 < \alpha < 1}{\implies}$ $\alpha$ kann
+  nicht als ganze Zahl geschrieben werden. 
+
+
+  \section{Abzählbarkeit und Überabzählbarkeit}
+
+  Sei $ f : M \to N $ eine Abbildung\footnote{Widerspricht nicht, dass ein
+    Element aus $N$ nicht oder mehrfach zugeordnet wird}.
+
+  \paragraph{Definition}
+  $f$ heißt
+
+  \begin{enumerate}
+  \item \textbf{injektiv}, falls $ \forall x,y \in M : (f(x) = f(y) \Rightarrow
+    x = y) $
+  \item \textbf{surjektiv}, falls $ \forall z \in N \,\exists\; x \in M : f(x) =
+    z $
+    \item \textbf{bijektiv}, falls f \textit{injektiv} und \textit{surjektiv} ist.
+  \end{enumerate}
+
+  \paragraph{Definition}
+  Zwei Mengen $M$ und $N$ heißen \textbf{gleichmächtig}, falls eine Bijektion
+  $ f : M \Rightarrow N $ existiert.
+
+  Eine Menge $M$ heißt \textbf{abzählbar}, wenn sie gleichmächtig zu $ \Nzero $
+  ist.
+
+  Eine unendliche, nicht abzählbare Menge heißt \textbf{überabzählbar}.
+
+  \subparagraph{Beispiel}
+  $ \Nzero $ ist abzählbar. ($ 0 \mapsto 0, 1 \mapsto 1, 2 \mapsto 2, 3 \mapsto
+  3,\,\ldots$)
+
+  \subparagraph{Beispiel}
+  $ \Z $ ist abzählbar. ($ 0 \mapsto 0, 1 \mapsto 1, -1 \mapsto 2, 2 \mapsto 3,
+  -2 \mapsto 4, \ldots$)
+
+  \subparagraph{Exkurs: Gedankenexperiment – Hilberts Hotel}
+  Hotel mit unendlich vielen Zimmern, alle Zimmer sind belegt.
+  Ein Gast kommt hinzu. Kann dieser ein Zimmer bekommen?
+  Ja: Der Portier fordert alle Gäste auf, in das nächste Zimmer zu ziehen.
+
+  \subparagraph{Beispiel}
+  $ \mathbb{Q}$ ist abzählbar: $0, \frac{1}{1}, - \frac{1}{1}, \frac{2}{1},
+  -\frac{2}{1}, \frac{1}{2}, -\frac{1}{2}, \ldots$
+%  $$
+%    \begin{matrix}
+%      \frac{1}{1} & \frac{2}{1} & \frac{3}{1} & \frac{4}{1} & \frac{5}{1} \\
+%      \frac{1}{2} & \frac{2}{2} & \frac{3}{2} & \frac{4}{2} & \frac{5}{2} \\
+%      \frac{1}{3} & \frac{2}{3} & \frac{3}{3} & \frac{4}{3} & \frac{5}{3} \\
+%      \frac{1}{4} & \frac{2}{4} & \frac{3}{4} & \frac{4}{4} & \frac{5}{4} \\
+%      \frac{1}{5} & \frac{2}{5} & \frac{3}{5} & \frac{4}{5} & \frac{5}{5} 
+%    \end{matrix}
+%    $$
+
+  \paragraph{Satz (Cantor)}
+  $\mathbb{R}$ ist überabzählbar.
+  \subparagraph{Beweis}
+  Annahme: $\mathbb{R}$ ist abzählbar.
+  Dann gibt es eine Liste aller reeller Zahlen.
+
+  $ \alpha^{(0)} = a_0^{(0)}\,,\, a_1^{(0)} \, a^{(0)}_2 \, a_3^{(0)} \,
+  a_4^{(0)} \ldots \, $ \\
+  
+  $ \alpha^{(1)} = a_0^{(1)}\,,\, a_1^{(1)} \, a^{(1)}_2 \, a_3^{(1)} \,
+  a_4^{(1)} \ldots \, $ \\
+
+  $ \alpha^{(2)} = a_0^{(2)}\,,\, a_1^{(2)} \, a^{(2)}_2 \, a_3^{(2)} \,
+  a_4^{(2)} \ldots \, $ \\
+
+  $\quad \quad \quad \quad \vdots$ \\
+
+
+  In Dezimaldarstellung ohne Neunerperiode.
+
+
+  Dann betrachte die reelle Zahl $ \beta = b_0 \,,\, b_1 b_2 b_3 \ldots$ , wobei wir
+  die $ b_i$s so wählen, dass $ b_i \neq a_i^{(i)}$
+
+  Dann taucht $ \beta $ in der Liste gar nicht auf.
+
+  Somit \textbf{Widerspruch!}: $ \mathbb{R} $ ist überabzählbar.
+
+  Dieses Vorgehen heißt Cantorsches Diagonalargument.
+  \section{Die komplexen Zahlen}
+  $ \Nzero \subseteq \Z \subseteq \mathbb{Q} \subseteq \mathbb{R} \subseteq \mathbb{C} $
+
+  \paragraph{Beispiel}
+  $ X^2 + 10 X - 144 = 0$
+
+  \subparagraph{Lösungsansatz} Quadratische Ergänzung
+
+  $X^2 + 2 \cdot 5 \cdot X + 5^2 - 5^2 - 144 = 0 \Leftrightarrow (X + 5)^2 = 169
+  \Leftrightarrow X + 5 = \pm \sqrt{169} = \pm 13 \Leftrightarrow X = -5 \pm 13
+  = -18, 8$
+
+  \paragraph{Allgemein}
+  $ X^2 + p X + q = 0$
+
+  \subparagraph{Lösung} $ \Leftrightarrow X^2 + pX + (\frac{p}{2})^2 -
+  (\frac{p}{2})^2 + q = 0 \Leftrightarrow (X + \frac{p}{2})^2 - (\frac{p}{2})^2
+  + q = 0 \Leftrightarrow (X + \frac{p}{2})^2 = (\frac{p}{2})^2 - q
+  \Leftrightarrow$
+  $\Leftrightarrow X + \frac{p}{2} = \pm \frac{1}{2} \sqrt{p^2 - 4q}
+  \Leftrightarrow X = - \frac{p}{2} \pm \frac{1}{2} \sqrt{p^2 - 4 q}$
+
+
+  \subparagraph{Definition}
+  $ \Delta := p^2 - 4q$ heißt die \textbf{Diskriminante} der Gleichung / des
+  quadratischen Polynoms.
+
+  Drei Fälle, jeweils in $\mathbb{R}$:
+  \begin{enumerate}
+  \item \textbf{Fall: $\Delta > 0$}: 2 (verschiedene) Lösungen
+  \item \textbf{Fall: $\Delta = 0$}: 1 Lösungen
+  \item \textbf{Fall: $\Delta < 0$}: Keine Lösungen
+  \end{enumerate}
+
+  [ Darstellung: Funktion $X^2 +pX+q$ in Koordinatensystem für $\Delta = 0$,
+  $\Delta < 0$ und $\Delta > 0$ ]
+
+  \subparagraph{Vergleiche}
+
+  $X^2 - 2 = 0$ hat in $\mathbb{Q}$ keine Lösung, da $8$ kein Quadrat in
+  $\mathbb{Q}$ ist.
+  
+  $X^2 + 1 = 0$ hat in $\mathbb{R}$ keine Lösung, da $-4$ kein Quadrat in $\R$.
+
+  \subsection{Die Imaginäre Einheit}
+  
+  Wir suchen einen Körper $\C$, in dem wir $X^2 + 1 = 0$ lösen können.
+  Damit muss ein $i \in \C$ existieren mit $ i^2 = - 1$, die sogenannte
+  \textbf{imaginäre Einheit}.
+
+  Angenommen, ein solches $\C$ existiert. Sind dann $a,b \in \R$, so ist $a + b
+  \cdot i \in \C$.
+
+  \subsection{Rechnen in $\C$}
+  \paragraph{Addition}
+  $(a + b \cdot i) + (c + d \cdot i) = (a+c)+(b+d)i$
+  \paragraph{Multiplikation}
+  $(a + b \iu) \cdot (c + d\iu) = ac + ad \iu + cb \iu + bd \cdot \iu^2 = (ac -bd) + (ad +
+  bc) \iu$ \;\; \footnote{$bd \iu^2 = -bd$, da qua Definition $\iu^2 = -1$}
+
+  Die Menge der Ausdrücke der Form $a + b \iu ; a,b \in \R$, wobei $\iu^2 = -1$
+  bildet einen kommutativen Ring, der $\R$ umfasst.
+
+  \subparagraph{Multiplikative Inversen}
+  $\frac{1}{a+b \iu} = \frac{a - b \iu}{(a + b \iu)(a -b \iu)} = \frac{a-b \iu
+  }{a^2+b^2} = \frac{a}{a^2 + b^2} - \frac{b}{a^2 + b^2} \iu$,
+   wobei $a \neq 0  b \neq 0$
+
+  Die Rechnung zeigt, dass $(a+b \iu)^{-1}$ existiert, nämlich $(a + b\iu)^{-1}
+  = \frac{a}{a^2 + b^2} - \frac{b}{a^2 + b^2}\iu$
+
+  \paragraph{Satz}
+  Die Menge $\C := \{ a + b \iu | a,b \in \R \}$, wobei $ \iu^2 = -1 $, bildet einen Oberkörper von
+  $\R$ den \textbf{Körper der komplexen Zahlen}.
+
+  \subparagraph{Warnung}
+  $\C$ ist kein angeordneter Körper\footnote{Das heißt: In $\C$: Wenn $a < b, c
+    <d$ gilt \textbf{nicht} $a + c < b + d$}:
+  Angenommen, es gibt eine Anordnung, die mit den arithmetischen Operationen
+  verträglich ist.
+
+  \textbf{Fall $i > 0$}: $\implies \iu^2 > 0 \implies -1 > 0 \implies 1 < 0$
+  \textbf{Widerspruch zu „Quadrate sind nicht negativ“}
+  
+  \textbf{Fall $i < 0$}: $\implies (- \iu)^2 > 0 \implies $
+  \textbf{Ebenfalls Widerspruch}
+
+  \subsection{Komplexe Zahlenebene}
+  [ Darstellung: Ebene komplexer Zahlen statt Zahlenstrahl. Betrag der komplexen
+  Zahl ist Abstand vom Ursprung]
+
+  \paragraph{Definition}
+  Ist $ z = a + b \iu \in \C ; a,b \in \R$, so heißt $ |z| := \sqrt{a^2 + b^2}$
+  der \textbf{Betrag von $z$}.
+
+  \paragraph{Proposition}
+  \begin{enumerate}
+  \item $|z| \geq 0$
+  \item $|z| = 0 \Leftrightarrow z = 0$
+  \end{enumerate}
+
+  \subparagraph{Aufgabe}
+  $ | z + w | \leq |z| + |w| $ für alle $ z,w \in \C$.
+
+  \paragraph{Proposition}
+  $| z \cdot w | = |z| \cdot |w|$ für alle $z,w \in \C$.
+
+  \subparagraph{Beweis}
+  $(a+b\iu) \cdot (c+d\iu) = ac -bd + (ad + bc)\iu \implies |(a+b\iu)(c+d\iu)|^2
+  = (ac-bd)^2 + (ad+bc)^2 =$
+
+  $= |a + b\iu|^2 \cdot |c + d\iu|^2 = (a^2 + b^2) \cdot (c^2 + d^2)$
+
+  \subsection{Alternative Darstellung}
+
+  Eine komplexe Zahl $z = a + b \iu$ lässt sich auch in der Form $z = r (\cos
+  \varphi + \iu \sin \varphi)$ schreiben.
+  Hierbei ist $r \in \R_{\geq 0}$ der \textbf{Betrag} $|z|$ von $z$ und $\varphi \in \R$
+  heißt das \textbf{Argument}.
+
+  \paragraph{Multiplikation}
+  $$ r(\cos \varphi + \iu \sin \varphi) \cdot r'(\cos \varphi ' + \sin \varphi ')
+  = r \cdot r' ((\cos \varphi \cdot \cos \varphi' - \sin\varphi \sin \varphi')+
+  \iu(\cos \varphi \sin \varphi'+ \sin\varphi\cos fg ft\varphi')) =$$
+  $$ = r r' (\cos(\varphi + \varphi') + \iu \sin (\varphi + \varphi'))$$
+
+  \paragraph{Erfolg}
+  In $\C$ hat jede quadratische Gleichung $X^2 + pX + q = 0$ (mindestens) eine
+  Lösung, nämlich $X = -\frac{p}{2} \pm \frac{1}{2} \sqrt{\Delta}, \; \Delta =
+  p^2-4q$.
+
+  $\sqrt{-5} = \sqrt{-1} \cdot \sqrt{5} = \pm \iu \sqrt{5}$
+
+  $\sqrt{r(\cos \varphi + \iu \sin \varphi)} = \pm \sqrt{r} \cdot (\cos
+  \rfrac{\varphi}{2} + \iu \sin \rfrac{\varphi}{2})$
+
+  \subsection{Kubische Gleichungen}
+  $ X^3 + aX^2 + bX + c = 0$
+
+  \paragraph{Ansatz}
+  $X^3 + a X^2 \frac{1}{3} a^2 X + \frac{1}{27} a^3 + (b - \frac{1}{3}a^2)X + (c
+  - \frac{1}{27}a^3) = (X + \frac{a}{3})^3 + (b - \frac{1}{3}a^2)X + (c -
+  \frac{1}{27}a^3)$
+  Setze $Y := X + \frac{a}{3}$\\
+  
+  $Y^3 + (b - \frac{1}{3}a^2)(Y - \frac{a}{3}) + (c - \frac{1}{27} a^3)$ \\
+  $= Y^3 + (b- \frac{1}{3}a^2)Y + (c - \frac{ab}{3} + \frac{2a^3}{27})$
+  Setze $ p:= b - \frac{1}{3}a^2, q := c - \frac{ab}{3} + \frac{2a^3}{27}$\\
+  $=Y^3 + pY + q$ (\textit{Kubik in reduzierter Form})
+
+  Es reicht damit, Gleichungen der Form $Y^3 + pY +q = 0$ zu lösen.
+
+  \subparagraph{Ansatz}
+  $ Y = U + V $.
+  Dann $ (U + V)^3 + p(U + V) + q = U^3 + 3 U^2 V + 3 UV^2 + V^3 + pU + pV + q$
+
+  \subparagraph{Ansatz}
+  $U^3 + V^3 = -q $. Dann $ 3U^2V+3UV^2+pU+pV = 0 = (3 \cdot UV + p) \cdot U +
+  (3 \cdot UV + p) \cdot V $.
+
+  \subparagraph{Ansatz}
+  $ U \cdot V = - \frac{p}{3}$, daraus $U^3 \cdot V^3 = -\frac{p}{27}$
+
+  \paragraph{Lösung}
+  $ V^3 = -q - U^3$. Also: $U^3(-q - U^3) = -\frac{p^3}{27} \Leftrightarrow
+  (U^3)^2 + q U^3 - \frac{p^3}{27} = 0 \Leftrightarrow U^3 = - \frac{q}{2} \pm
+  \frac{1}{2} \sqrt{q^2 + \frac{4 p^3}{27}}\Leftrightarrow$
+  $\Leftrightarrow U = \sqrt[3]{-\frac{q}{2} \pm \frac{1}{2} \sqrt{q^2 +
+      \frac{4p^3}{27}}}, \quad V = -\frac{p}{3U}, \quad Y = U + V, X = Y -
+  \frac{a}{3}$
+
+  \newpage
+  \subsection{Gaussscher Fundamentalsatz der Algebra}
+  $\C$ ist \textbf{algebraisch abgeschlossen}, das heißt: Jedes nicht konstante
+  Polynom hat in $\C$ eine Nullstelle.
+
+  
+  $P(X) \in \C[X]$, deg.  $P(X) = n > 0$. Nach dem FdA\footnote{Fundamentalsatz
+    der Algebra} existiert $z_1 \in \C$ mit $P(z_1) = 0$.
+
+  Polynomdivision:
+  $ P(X) = (X-z_1) \cdot Q(X) + R$, deg. $Q(X) = n - 1,\quad \R \in \C$. Wegen
+  $P(z_1) = 0$ sogar $R = 0$.
+
+  
+  Dann machen wir mit $Q(X)$ anstelle $P(X)$ weiter, usw.\\
+  $\rightsquigarrow P(X)
+  = (X - z_1) \cdot Q(X) = (X-z_1)(X-z_2)\cdot \overline{Q}(X) = \ldots = c
+  \cdot (X-z_1)/cdot(X-z_2)\cdots(X-Z_n)$.
+
+  Insbesondere lässt sich jedes Polynom über $\C$ als Produkt linearer Polynome schreiben.
+
+
+  \paragraph{Beweis}
+  $P(Z) = Z^d + a_1 Z^{d-1} + \ldots + a_{d-1}Z + a_d; \quad a_i \in \C$
+
+  $$ \lim_{|Z| \to \infty} |P(X)| = \lim_{|Z| \to \infty} | Z^d (1 + a_1Z^{-1} +
+  \ldots + a_d Z^{-d})| \leq \lim_{|z| \to \infty} |z|^d (1 + |a_1| \cdot
+  |z|^{-1} + \ldots + |a_d|\cdot |z^{-d}|) = \infty$$
+
+  Damit nimmt $|P(Z)|$ an einer Stelle $z_0 \in \C$ ihr Minimum an.
+  Das heißt: $\forall a \in \C : |P(a)| \geq |P(z_0)|$
+
+  \subparagraph{Annahme}
+  $|P(z_0)| > 0$ (sonst $|P(z_0)| = 0$, also $P(z_0) = 0$, also hätten wir
+  Nullstellen)
+
+  $W = Z - z_0 \Leftrightarrow Z = W + z_0; \quad P(Z) = a + b W^n + W^{n+1}
+  \cdot Q(W)$, $a,b \in \C$, $Q(W) \in \C [W]$
+
+  Bei $W = 0$ nimmt $P(Z)$ betraglich sein Minimum an.
+
+  Wähle $\omega \in \C $ mit $\omega^n = - \frac{a}{b}$.
+  Dann ist $\delta|\omega^{n+1} \cdot Q(\delta \cdot \omega)| < |a|$ für
+  geeignetes $\delta > 0$.
+
+  $P(\delta \cdot \omega) = a + b \cdot \delta^n \cdot \omega^n +
+  \delta^{n+1}\cdot\omega^{n+1}\cdot Q(\delta \cdot \omega) = a(1-\delta^n) +
+  \delta^{n+1}\cdot\omega^{n+1}\cdot Q(\delta \cdot \omega)$\\
+  $\implies |P(\delta\omega)| \leq |a| \cdot |1 - \delta^n| + \delta^{n+1}
+  |\omega^{n+1} Q(\delta\omega)| < |a| \cdot |1 - \delta^n| + |a| \cdot \delta^n
+  \leq |a| = |P(z_0)|$
+  \section{Auswahlaxiom, Zornsches Lemma und Ultrafilter}
+
+  \subsection{Auswahlaxiom}
+
+  \paragraph{Definition}
+
+  Ist $M$ eine Menge nicht-leerer Mengen, so existiert dazu eine Auswahlmenge,
+  das heißt: eine Menge $X$, so dass $\forall U \in M \exists!\, a \in U$. mit $a
+  \in X$\footnote{$\exists\text{!}$ bedeutet: „es existiert genau ein Element“}.
+
+  Sei $Z$ eine Menge, $\mathscr{X} \subseteq P(Z)$, also ist $\mathscr{X}$
+  eine Menge von Teilmengen von $Z$.
+
+  \subparagraph{Definition}
+  Eine \textbf{Kette in $\mathscr{X}$} ist eine Teilmenge $ \mathscr{Y}
+  \subseteq \mathscr{X}$ mit $ \forall Y_1, Y_2 \in \mathscr{Y} : Y_1 \subseteq
+  Y_2 \land Y_2 \subseteq Y_1 $
+
+  \subsection{Zornsches Lemma}
+  Sei $Z, \mathscr{X}$ wie eben.
+  Zusätzlich gelte:
+  \begin{enumerate}
+    \item Ist $X' \subseteq X \in \mathscr{X}$, so auch $X' \in \mathscr{X}$
+    \item Ist $\mathscr{Y \subseteq X}$ eine Kette, so ist $\cup \mathscr{Y} =
+      \cup Y \in \mathscr{X}$.
+  \end{enumerate}
+
+  Dann besitzt $\mathscr{X}$ ein \textbf{maximales Element} $X_0 \in \mathscr{X}$ bzgl.
+  „$\subseteq$“, d.h. $\forall X \in \mathscr{X}: X \supseteq X_0 \implies X =
+  X_0$
+
+  \paragraph{Beweisidee}
+  \begin{itemize}
+  \item Wegen 2. (Wähle $\mathscr{Y = \emptyset \subseteq X}$ (Kette)) ist $\emptyset
+  = \cup \emptyset \in \mathscr{X}$.
+  \item Falls $\emptyset$ maximal in $\mathscr{X}$, sind wir fertig.
+  \item Ansonsten gibt es $X_1 \in \mathscr{X}$ mit $X_0 \subsetneqq X_1$.
+  \item Entweder ist $X_1$ maximal oder wir machen weiter … \\
+    $X_0 \subsetneqq X_1 \subsetneqq X_2 \subsetneqq X_3 \subsetneqq \ldots
+    \subsetneqq X_\omega$
+  \end{itemize}
+
+  Breche der Prozess nicht ab (ansonsten wären wir nach $n \in \Nzero$ Schritten
+  fertig.)\\
+  Wegen 2. ist $X_\omega = \cup_{i=0}^{\infty} X_i \in \mathscr{X}$.
+
+  Ist $X_\omega$ immer noch nicht maximal, so finden wir $X_\omega \subsetneqq
+  X_{\omega + 1} \subsetneqq \ldots \subsetneqq X_{\omega + n} \subsetneqq
+  \ldots$
+
+  Bricht dies immer noch nicht ab, so ist $X_{\omega \cdot 2} = \cup_{n=0}^{\infty} X_{\omega +
+    n}$ der nächste Kandidat.\\%
+  %
+  $X_0 \subsetneqq X_1 \subsetneqq X_2 \subsetneqq \ldots X_\omega$\\
+  $X_\omega  \subsetneqq X_{\omega+1} \subsetneqq X_{\omega+2} \subsetneqq
+  X_{\omega+3} \subsetneqq \ldots \subsetneqq X_{\omega \cdot 2}$\\
+  $X_{\omega\cdot2}  \subsetneqq X_{\omega\cdot2+1} \subsetneqq X_{\omega\cdot2+2} \subsetneqq
+  X_{\omega\cdot2+3} \subsetneqq \ldots \subsetneqq X_{\omega \cdot 3}$
+
+  \paragraph{Korollar}
+  Sei $(Z, \leq)$ eine \textbf{teilweise geordnete} Menge, das heißt es gilt:
+  \begin{enumerate}
+    \item $\forall z \in Z : z \leq z$.
+    \item $\forall x,y \in Z : x \leq y \land y \leq x \implies x = y $
+    \item $\forall x,y,z \in Z : x \leq y \land y \leq z \implies x \leq z$
+  \end{enumerate}
+
+  Besitzt dann jede \textbf{Kette} $Y$ in $Z$ (d.h.\ jede vollständig geordnete Teilmenge
+  von $Y \subseteq Z$) eine \textbf{obere Schranke} in $Z$, das heißt $\exists z
+  \in Z \forall y \in Y : y \leq z$, dann besitzt $Z$ ein maximales Element $z_0
+  \in Z$, das heißt $\forall z \in Z : z \geq z_0 \implies z = z_0$.
+
+  \subparagraph{Beweis}
+  Sei $\mathscr{X} \subseteq P(Z)$ die Menge der Ketten von $(Z, \leq)$.
+  Dann sind 1. und 2. vom Zornschen Lemma erfüllt.
+  Damit existiert eine maximale Kette $X_0 \in \mathscr{X}$.
+
+  Nach Voraussetzung des Korollars besitzt $X_0$ eine obere Schranke $z_0 \in
+  Z$.
+
+  \subparagraph{Annahme}
+  $z_0$ ist nicht maximal, das heißt es existiert  $z_1 \in Z$ mit $z_1 \geq
+  z_0, z_1 \neq z_0$.
+  Dann wäre aber $X_0 \cup \{z_1\}$ eine echt größere Kette als $X_0$.
+  Dies wäre aber ein \textbf{Widerspruch} zur Maximalität von $X_0$.
+
+  \subsection{Ultrafilter}
+  \paragraph{Definition}
+  Sei $X$ eine Menge. Ein \textbf{Filter} $F$ auf $X$ ist eine Teilmenge $F
+  \subseteq P(X)$ mit
+  \begin{enumerate}
+  \item $X \in F$
+  \item $\emptyset \notin F$
+  \item $\forall A \in F : B \supseteq A \Rightarrow B \in F$
+  \item $\forall A,B \in F \Rightarrow A \cap B \in F$
+  \end{enumerate}
+
+  \subparagraph{Beispiel}
+  Sei $x_0 \in X$ ein Element einer Menge.
+  Dann ist $F := \{ A \subseteq X | x_0 \in A\}$ ein Filter, der von $x_0$ erzeugte Filter.
+
+  Filter, die nicht von einem Element erzeugt werden, heißen \textbf{frei}.
+
+	\subparagraph{Beispiel}
+		Sei $S$ eine unendlich große Menge.
+		Dann ist $F := \{A \subseteq X | X \setminus A \text{ endlich} \}$ ein Filter, der sogenannte \textbf{Fréchet-Filter} auf $X$.
+		
+
+	\paragraph{Definition}
+		Ein \textbf{Ultrafilter} auf $X$ ist ein Filter mit 5. $\forall A \subseteq X : A \in F \lor X \setminus A \in F$.
+		
+		\subparagraph{Beispiel}
+			Nicht freie Filter\footnote{Bspw. Fréchet-Filter} sind Ultrafilter.
+		\subparagraph{Frage}
+			Gibt es freie Ultrafilter?
+		\subparagraph{Satz}
+			Ist $F$ ein Filter auf $X$, so gibt es einen Ultrafilter $\hat{X}$ auf $X$ mit $F \subseteq \hat{F}$.
+		\subparagraph{Folgerung}
+			Auf jeder unendlichen Menge gibt es einen freien Ultrafilter.
+		\paragraph{Beweis (Folgerung)}
+			Wähle einen Ultrafilter, der den Fréchet-Filter umfasst.
+			$\square$
+		\paragraph{Beweis (Satz)}
+			Sei $Z$ die Menge der Filter $\widetilde{F}$ mit $\widetilde{F} \supseteq F$.
+			Es ist $Z$ bezüglich „$\subseteq$“ teilweise geordnet.
+			Jede Kette $\mathbb{F}$ in $Z$, also jede Kette von Filtern besitzt eine obere Schranke in $Z$, nämlich $\cup_{\widetilde{F} \in F} \widetilde{F} $.
+
+			Zu überprüfen, dass dies ein Filter ist, also in $Z$ liegt.\
+			
+			z.B. Filgereigenschaft 4. : $A,B \in \cup_{\widetilde{F} \in \mathbb{F}} \widetilde{F} \stackrel{?}{\Rightarrow} A \cap B \in \cup_{\tilde{F} \in \mathbb{F}} \mathbb{F}$
+
+			$\rightsquigarrow$ Da $\mathbb{F}$ Kette,  $\tilde{F}_1 \subseteq \tilde{F}_2$ oder $\tilde{F}_2 \subseteq \tilde{F}_1$.
+			Ohne Beschränkung der Allgemeinheit: $\tilde{F}_1 \subseteq \tilde{F}_2$.
+
+			Also $A,B \in \tilde{F}_2 \Rightarrow A \cap B \in \tilde{F}_2 \in \mathbb{F} \Rightarrow A \cap B \in \cup \mathbb{F}$.
+
+			Nach Zorn besitzt $Z$ ein maximales Element $\hat{F}$.
+
+			\textbf{Behauptung}: $\hat{F}$ ist Ultrafilter.
+
+			\textbf{Begründung}
+			Unter der Annahme, dass $\hat{F}$ ein Ultrafilter ist, gibt es ein $A \subseteq X$ mit $A \notin \hat{F}$ und $X \setminus A \notin \hat{F}$.
+			
+			\textbf{Definition}:
+			$\mathscr{Y} := \{ G \subseteq X | \exists F \in \hat{F} : G \supseteq F \cap A\}$
+
+			Damit ist $\mathscr{G}$ ein Filter; wegen $A \in \mathscr{G}$, aber $A \notin \hat{F}$ ist $\hat{F} \neq \mathscr{G}$.
+			Aber $\hat{F} \subseteq \mathscr{G}$.
+
+			Damit $\hat{F}$ nicht maximal. \textbf{Widerspruch!}
+			$\square$
+\end{document}

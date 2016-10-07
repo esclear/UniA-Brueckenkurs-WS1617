@@ -1,0 +1,198 @@
+\documentclass[14pt,a4paper]{article}
+
+\usepackage{setspace}
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+
+% Footer
+
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\pagestyle{fancy}%
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}%
+\fancyfoot[L]{Daniel Albert}
+\fancyfoot[C]{Alle Mitschriften ohne Garantie auf Korrektheit oder Vollständigkeit}
+\fancyfoot[R]{\thepage{} / \pageref{LastPage}}
+
+%Eigene Makros
+
+\newcommand{\dotcup}{\ensuremath{\mathaccent\cdot\cup}}
+\newcommand*\rfrac[2]{{}^{#1}\!/_{#2}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\C}{\ensuremath{\mathbb{C}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\Nzero}{\ensuremath{\N_0}}
+
+\newcommand{\iu}{{i\mkern1mu}}
+
+\begin{document}
+	\begin{center}
+		\Huge\textbf{Brückenkurs – Tag 9 – 2016-10-14}
+	\end{center}
+	%\par
+
+  \setcounter{section}{12}
+  \section{Auswahlaxiom, Zornsches Lemma und Ultrafilter}
+
+  \subsection{Auswahlaxiom}
+
+  \paragraph{Definition}
+
+  Ist $M$ eine Menge nicht-leerer Mengen, so existiert dazu eine Auswahlmenge,
+  das heißt: eine Menge $X$, so dass $\forall U \in M \exists!\, a \in U$. mit $a
+  \in X$\footnote{$\exists\text{!}$ bedeutet: „es existiert genau ein Element“}.
+
+  Sei $Z$ eine Menge, $\mathscr{X} \subseteq P(Z)$, also ist $\mathscr{X}$
+  eine Menge von Teilmengen von $Z$.
+
+  \subparagraph{Definition}
+  Eine \textbf{Kette in $\mathscr{X}$} ist eine Teilmenge $ \mathscr{Y}
+  \subseteq \mathscr{X}$ mit $ \forall Y_1, Y_2 \in \mathscr{Y} : Y_1 \subseteq
+  Y_2 \land Y_2 \subseteq Y_1 $
+
+  \subsection{Zornsches Lemma}
+  Sei $Z, \mathscr{X}$ wie eben.
+  Zusätzlich gelte:
+  \begin{enumerate}
+    \item Ist $X' \subseteq X \in \mathscr{X}$, so auch $X' \in \mathscr{X}$
+    \item Ist $\mathscr{Y \subseteq X}$ eine Kette, so ist $\cup \mathscr{Y} =
+      \cup Y \in \mathscr{X}$.
+  \end{enumerate}
+
+  Dann besitzt $\mathscr{X}$ ein \textbf{maximales Element} $X_0 \in \mathscr{X}$ bzgl.
+  „$\subseteq$“, d.h. $\forall X \in \mathscr{X}: X \supseteq X_0 \implies X =
+  X_0$
+
+  \paragraph{Beweisidee}
+  \begin{itemize}
+  \item Wegen 2. (Wähle $\mathscr{Y = \emptyset \subseteq X}$ (Kette)) ist $\emptyset
+  = \cup \emptyset \in \mathscr{X}$.
+  \item Falls $\emptyset$ maximal in $\mathscr{X}$, sind wir fertig.
+  \item Ansonsten gibt es $X_1 \in \mathscr{X}$ mit $X_0 \subsetneqq X_1$.
+  \item Entweder ist $X_1$ maximal oder wir machen weiter … \\
+    $X_0 \subsetneqq X_1 \subsetneqq X_2 \subsetneqq X_3 \subsetneqq \ldots
+    \subsetneqq X_\omega$
+  \end{itemize}
+
+  Breche der Prozess nicht ab (ansonsten wären wir nach $n \in \Nzero$ Schritten
+  fertig.)\\
+  Wegen 2. ist $X_\omega = \cup_{i=0}^{\infty} X_i \in \mathscr{X}$.
+
+  Ist $X_\omega$ immer noch nicht maximal, so finden wir $X_\omega \subsetneqq
+  X_{\omega + 1} \subsetneqq \ldots \subsetneqq X_{\omega + n} \subsetneqq
+  \ldots$
+
+  Bricht dies immer noch nicht ab, so ist $X_{\omega \cdot 2} = \cup_{n=0}^{\infty} X_{\omega +
+    n}$ der nächste Kandidat.\\%
+  %
+  $X_0 \subsetneqq X_1 \subsetneqq X_2 \subsetneqq \ldots X_\omega$\\
+  $X_\omega  \subsetneqq X_{\omega+1} \subsetneqq X_{\omega+2} \subsetneqq
+  X_{\omega+3} \subsetneqq \ldots \subsetneqq X_{\omega \cdot 2}$\\
+  $X_{\omega\cdot2}  \subsetneqq X_{\omega\cdot2+1} \subsetneqq X_{\omega\cdot2+2} \subsetneqq
+  X_{\omega\cdot2+3} \subsetneqq \ldots \subsetneqq X_{\omega \cdot 3}$
+
+  \paragraph{Korollar}
+  Sei $(Z, \leq)$ eine \textbf{teilweise geordnete} Menge, das heißt es gilt:
+  \begin{enumerate}
+    \item $\forall z \in Z : z \leq z$.
+    \item $\forall x,y \in Z : x \leq y \land y \leq x \implies x = y $
+    \item $\forall x,y,z \in Z : x \leq y \land y \leq z \implies x \leq z$
+  \end{enumerate}
+
+  Besitzt dann jede \textbf{Kette} $Y$ in $Z$ (d.h.\ jede vollständig geordnete Teilmenge
+  von $Y \subseteq Z$) eine \textbf{obere Schranke} in $Z$, das heißt $\exists z
+  \in Z \forall y \in Y : y \leq z$, dann besitzt $Z$ ein maximales Element $z_0
+  \in Z$, das heißt $\forall z \in Z : z \geq z_0 \implies z = z_0$.
+
+  \subparagraph{Beweis}
+  Sei $\mathscr{X} \subseteq P(Z)$ die Menge der Ketten von $(Z, \leq)$.
+  Dann sind 1. und 2. vom Zornschen Lemma erfüllt.
+  Damit existiert eine maximale Kette $X_0 \in \mathscr{X}$.
+
+  Nach Voraussetzung des Korollars besitzt $X_0$ eine obere Schranke $z_0 \in
+  Z$.
+
+  \subparagraph{Annahme}
+  $z_0$ ist nicht maximal, das heißt es existiert  $z_1 \in Z$ mit $z_1 \geq
+  z_0, z_1 \neq z_0$.
+  Dann wäre aber $X_0 \cup \{z_1\}$ eine echt größere Kette als $X_0$.
+  Dies wäre aber ein \textbf{Widerspruch} zur Maximalität von $X_0$.
+
+  \subsection{Ultrafilter}
+  \paragraph{Definition}
+  Sei $X$ eine Menge. Ein \textbf{Filter} $F$ auf $X$ ist eine Teilmenge $F
+  \subseteq P(X)$ mit
+  \begin{enumerate}
+  \item $X \in F$
+  \item $\emptyset \notin F$
+  \item $\forall A \in F : B \supseteq A \Rightarrow B \in F$
+  \item $\forall A,B \in F \Rightarrow A \cap B \in F$
+  \end{enumerate}
+
+  \subparagraph{Beispiel}
+  Sei $x_0 \in X$ ein Element einer Menge.
+  Dann ist $F := \{ A \subseteq X | x_0 \in A\}$ ein Filter, der von $x_0$ erzeugte Filter.
+
+  Filter, die nicht von einem Element erzeugt werden, heißen \textbf{frei}.
+
+	\subparagraph{Beispiel}
+		Sei $S$ eine unendlich große Menge.
+		Dann ist $F := \{A \subseteq X | X \setminus A \text{ endlich} \}$ ein Filter, der sogenannte \textbf{Fréchet-Filter} auf $X$.
+		
+
+	\paragraph{Definition}
+		Ein \textbf{Ultrafilter} auf $X$ ist ein Filter mit 5. $\forall A \subseteq X : A \in F \lor X \setminus A \in F$.
+		
+		\subparagraph{Beispiel}
+			Nicht freie Filter\footnote{Bspw. Fréchet-Filter} sind Ultrafilter.
+		\subparagraph{Frage}
+			Gibt es freie Ultrafilter?
+		\subparagraph{Satz}
+			Ist $F$ ein Filter auf $X$, so gibt es einen Ultrafilter $\hat{X}$ auf $X$ mit $F \subseteq \hat{F}$.
+		\subparagraph{Folgerung}
+			Auf jeder unendlichen Menge gibt es einen freien Ultrafilter.
+		\paragraph{Beweis (Folgerung)}
+			Wähle einen Ultrafilter, der den Fréchet-Filter umfasst.
+			$\square$
+		\paragraph{Beweis (Satz)}
+			Sei $Z$ die Menge der Filter $\widetilde{F}$ mit $\widetilde{F} \supseteq F$.
+			Es ist $Z$ bezüglich „$\subseteq$“ teilweise geordnet.
+			Jede Kette $\mathbb{F}$ in $Z$, also jede Kette von Filtern besitzt eine obere Schranke in $Z$, nämlich $\cup_{\widetilde{F} \in F} \widetilde{F} $.
+
+			Zu überprüfen, dass dies ein Filter ist, also in $Z$ liegt.\
+			
+			z.B. Filgereigenschaft 4. : $A,B \in \cup_{\widetilde{F} \in \mathbb{F}} \widetilde{F} \stackrel{?}{\Rightarrow} A \cap B \in \cup_{\tilde{F} \in \mathbb{F}} \mathbb{F}$
+
+			$\rightsquigarrow$ Da $\mathbb{F}$ Kette,  $\tilde{F}_1 \subseteq \tilde{F}_2$ oder $\tilde{F}_2 \subseteq \tilde{F}_1$.
+			Ohne Beschränkung der Allgemeinheit: $\tilde{F}_1 \subseteq \tilde{F}_2$.
+
+			Also $A,B \in \tilde{F}_2 \Rightarrow A \cap B \in \tilde{F}_2 \in \mathbb{F} \Rightarrow A \cap B \in \cup \mathbb{F}$.
+
+			Nach Zorn besitzt $Z$ ein maximales Element $\hat{F}$.
+
+			\textbf{Behauptung}: $\hat{F}$ ist Ultrafilter.
+
+			\textbf{Begründung}
+			Unter der Annahme, dass $\hat{F}$ ein Ultrafilter ist, gibt es ein $A \subseteq X$ mit $A \notin \hat{F}$ und $X \setminus A \notin \hat{F}$.
+			
+			\textbf{Definition}:
+			$\mathscr{Y} := \{ G \subseteq X | \exists F \in \hat{F} : G \supseteq F \cap A\}$
+
+			Damit ist $\mathscr{G}$ ein Filter; wegen $A \in \mathscr{G}$, aber $A \notin \hat{F}$ ist $\hat{F} \neq \mathscr{G}$.
+			Aber $\hat{F} \subseteq \mathscr{G}$.
+
+			Damit $\hat{F}$ nicht maximal. \textbf{Widerspruch!}
+			$\square$
+
+\end{document}

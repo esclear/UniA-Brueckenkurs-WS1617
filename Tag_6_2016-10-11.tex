@@ -1,0 +1,287 @@
+\documentclass[14pt,a4paper]{article}
+
+\usepackage{setspace}
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[L]{Daniel Albert}
+\fancyfoot[C]{Alle Mitschriften ohne Garantie auf Korrektheit oder Vollständigkeit}
+\fancyfoot[R]{\thepage{} / \pageref{LastPage}}
+
+
+\newcommand{\dotcup}{\ensuremath{\mathaccent\cdot\cup}}
+\newcommand*\rfrac[2]{{}^{#1}\!/_{#2}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\Nzero}{\ensuremath{\N_0}}
+
+\begin{document}
+	\begin{center}
+		\Huge\textbf{Brückenkurs – Tag 6 – 2016-10-11}
+	\end{center}
+	\par
+
+  \setcounter{section}{7}
+  \setcounter{subsection}{3}
+  \subsection{Beispiele für Ringe}
+  $\Z, \Q, \mathbb{R} \Z[X], \Q[X], \mathbb{R}[X]$ (alle nullteilerfrei)
+
+  \paragraph{Beispiel}
+  Sei $M$ eine Menge. Sei $R := P(M) = \{ N \; | \; N \subseteq M\}$.
+
+  Wir definieren: $A + B := ( A \cup B) \setminus (A \cap B)$, $A \cdot B = A
+  \cap B$
+
+  [Venn-Diagramm aus Menge $M$ mit $A+B$ und $A \cdot B$ markiert]
+
+  Sei $ 0 := \emptyset $, $ 1 := M $.
+  Dann ist $ ( R= P(M), 0, 1, +, \cdot ) $ ein kommutativer Ring.
+
+  Es gilt dann: $ -A = A $, insbesondere $ A + A = 2 \cdot A = 0 $
+
+  \paragraph{Bemerkung}
+  Dieser Ring ist für $ |M| \geq 2 $ nicht \textbf{nullteilerfrei}:
+
+  Seien $ A,B \in R ; A \neq \emptyset ; B \neq \emptyset ; A \cap B = \emptyset
+  $.
+  Dann gilt: $ A \dot B = 0$, aber $A \neq 0, B \neq 0$.
+
+  \paragraph{Anmerkung}
+  Im Ring $\Z$ gibt es immer eine eindeutige Primfaktorzerlegung.
+  Für $ \Q[X] $ gibt es irreduzible Polynome, die sich nicht als Produkt anderer
+  Polynome schreiben lassen:
+
+  $ x^2 - 1 = (x-1)(x+1) $ ist reduzibel.
+
+  $ X^2 + 1 $ hingegen ist irreduzibel.
+
+  $ x^3 - 1 = (x-1)(x^2+x+1) $ wurde in zwei irreduzible Polynome zerlegt.
+
+  \section{Rechnen mit Restklassen}
+  \subsection{Satz („9er Probe“)}
+  $ 9 \;| \; \sum_{j=0}^n a_j \cdot 10^j \Leftrightarrow 9 | \sum_{j=0}^n a_j $,
+  wobei $a_j \in \Z$.
+
+  \paragraph{Beispiel}
+  $ 9 | 123456789 \Leftrightarrow 9 | (1+2+3+4+5+6+7+8+9) \Leftrightarrow 9 | 45
+  $
+
+  \subsection{Definition: Kongruenz}
+  Sei $ n \in \Z $. Sind dann $a,b \in \Z$, so heißen $a$ und $b$
+  \textbf{kongruent modulo m}, falls $m | (a-b)$, d.h. der Rest der Division von
+  $a$ beziehungsweise $b$ durch $m$ ist gleich soweit $m \neq 0$.
+  Wir schreiben dann $ a \equiv b (m)$.
+
+  \paragraph{Beispiel}
+  $5 \equiv 7 (2), 8 \equiv 3 (5), 9 \equiv -1 (10), 4 \equiv 14 (1), -3 \equiv -3 (0)$
+
+  \paragraph{Proposition}
+  $ \equiv (m) $ ist eine Äquivalenzrelation.
+
+  \subparagraph{Beweis}
+  $$ a \equiv a (m) ; a \equiv b (m) \Rightarrow b \equiv a (m)$$
+  $$a \equiv b (m), b \equiv c (m) \Rightarrow a \equiv c (m) : m | (a-b), m|
+  (c-b) \Rightarrow \exists \, d,e \in \Z : a-b = dm, c-b=e, \Rightarrow
+  m|(c-a)$$
+
+  \subsection{Definition: Restklassen}
+  Die Äquivalenzklassen modulo $m$ heißen \textbf{Restklassen modulo m}.
+
+  \paragraph{Beispiel}
+  $ m = 3 $
+
+  $ [0]_3 = \{ \dotsb, -3, 0, 3, 6, \dotsb \} $ \par
+  $ [1]_3 = \{ \dotsb, -2, 1, 4, 7, \dotsb \} = [4]_3 $
+
+  \paragraph{Proposition}
+  $ a \equiv a' (m), b \equiv b' (m)$.
+  Dann gilt:
+  \begin{enumerate}
+    \item $ a + b \equiv a' + b' (m) $
+    \item $a \cdot b \equiv a' \cdot b' (m) $
+  \end{enumerate}
+
+  \subparagraph{Beweis}
+  \begin{itemize}
+    \item $ (a+b) - (a' + b') = (a - a') + (b - b')$ ist durch $m$ teilbar, also 1.
+    \item $ a \cdot b - a' \cdot b' = a \cdot b - a' \cdot b + a'\cdot b - a'
+      \cdot b' = (a - a') \cdot b + a'(b - b') $ ist durch m teilbar, also 2.
+  \end{itemize}
+
+  % TODO: Überschrift?
+  \subsection{Der Körper $\mathbb{F}_3$}
+
+  Damit können wir definieren: $ [a]_m + [b]_m := [a + b]_m$ und $[a]_m \cdot [b]_m
+  := [ a \cdot b ]_m$.
+
+  Die Mege der Restklassen modulo m $ \rfrac{\Z}{\equiv_{(m)}} $ bezeichnen wir auch
+  mit $ \rfrac{\Z}{(m)}$
+
+  Es ist $ \left( \rfrac{\Z}{(m)}, [0]_m, [1]_m, +, \cdot \right) $ ein kommutativer Ring,
+  der \textbf{Restklassenring modulo m}.
+
+  \subparagraph{Beispiel}
+  $m=3$
+
+  \begin{tabular}{c || c | c | c}
+     +  & [0] & [1] & [2] \\ \hline \hline
+    [0] & [0] & [1] & [2] \\ \hline
+    [1] & [1] & [2] & [0] \\ \hline
+    [2] & [2] & [0] & [1]
+  \end{tabular}
+  \begin{tabular}{c || c | c | c}
+    $\cdot$ & [0] & [1] & [2] \\ \hline \hline
+    [0] & [0] & [0] & [0] \\ \hline
+    [1] & [0] & [1] & [2] \\ \hline
+    [2] & [0] & [2] & [1]
+  \end{tabular}
+
+  Dieser Körper wird $\mathbb{F}_3$ genannt.
+
+  \subsection{Beweis (9er Probe)}
+  $$ 9 | \sum_{j=0}^n a_j \cdot 10^j \Leftrightarrow \sum_{j=0}^n a_j \cdot
+  10^j \equiv 0 (9) \Leftrightarrow \sum_{j=0}^n a_j \cdot 1^j \equiv 0 (9)
+  \Leftrightarrow 9 | \sum_{j=0}^n a_j  $$
+
+  \section{Konvergente und divergente Folgen}
+  \paragraph{Beispiele für Folgen}
+  \begin{itemize}
+    \item $1,3,5,7,9,11,13, \dotsb$
+    \item $1,4,9,16,25, \dotsb$
+    \item $1,3,2,4,3,5,4,6,5,7,6,8, \dotsb$
+  \end{itemize}
+
+  \paragraph{Definition}
+  Eine \textbf{Folge} $a$ (reeller Zahlen) ist eine Abbildung $ a : \Nzero
+  \to \mathbb{R}, n \mapsto a_n $
+
+  Für diese Abbildung schreiben wir auch $ (a_n)_n \in \Nzero$.
+
+
+  \subparagraph{Beispiele}
+  \begin{itemize}
+    \item $a_n = n :  (a_n)_{n \in \Nzero}=(0,1,2,3,\dotsb)$
+    \item $b_n = \frac{1}{n} : (b_n)_{n\in \N_{\geq 1}} = (1, \frac{1}{2},
+        \frac{1}{3}, \frac{1}{4} \dotsb ) $
+    \item $c_n = \frac{(-1)^n}{n} : (c_n)_{n \in \N_{\geq 1}} = (-1,
+      \frac{1}{2}, -\frac{1}{3}, \frac{1}{2}, \dotsb)$
+    \end{itemize}
+
+    \subparagraph{Beispiel: Fibonacci-Folge}
+    $$ (F_n)_{n \geq 0} \text{ , wobei } F_0=0, F_1=1, F_n+2 = F_n + F_{n+1} $$
+    $$ \rightsquigarrow (F_n){_{n \geq 0}} = (0, 1, 1, 2, 3, 5, 8, 13, 21, 34,
+    \dotsb)$$
+
+    $$ x^2 = 2y^2 + 1 : (3,2); (17,12); (99,70), \dotsb $$
+
+    $$ \rightarrow \text{ Folge: } \frac{3}{2}, \frac{17}{12}, \frac{99}{70},
+    \dotsb \rightsquigarrow \sqrt{2} $$
+
+    \paragraph{Definition}
+    Eine Folge $(a_n)_{n \geq 0} $ heißt \textbf{konvergent mit Grenzwert $a$},
+    falls $ \forall \varepsilon > 0 \,\exists\, n_0 : \forall n \geq n_0 : | a_n
+    - a | < \varepsilon $
+    Wir schreiben dann: $ \lim_{n \to \infty} a_n = a $
+
+    \subparagraph{Beispiel}
+    $ (b_n) = (\frac{1}{n}) $.
+    $ \lim_{n \to \infty} \frac{1}{n} = 0 $.
+
+    Zu untersuchen: $ | \frac{1}{n} - 0 | = \frac{1}{n} < \varepsilon $.
+
+    Sei $\varepsilon > 0$ vorgegeben. Dann wähle $ n_0 \in \N_{\geq 1} $ mit
+    $\frac{1}{n_0} < \varepsilon $. Für $n \geq n_0 $ gilt dann: $ \frac{1}{n}
+    \leq \frac{1}{n_0} <  \varepsilon $
+
+    \paragraph{Definition}
+    Eine Folge $(a_n)$, für die kein $a$ mit $\lim_{n \to \infty} a_n = a$
+    existiert, heißt \textbf{divergent}.
+
+    \subparagraph{Beispiel}
+    $ (a_n) = (-1)^{n} : 1, -1, 1, -1, \dotsb $ divergiert.
+
+    Annahme: $a$ wäre Grenzwert. Dann gäbe es insbesondere zu $ \varepsilon =
+    \frac{1}{2} $ ein $n_0$ mit $ |a_n - a| < \frac{1}{2} $ für $ n \geq n_0$.
+
+    Damit $ | a_{n_0} - a | + | a_{n_0 + 1} - a | < 1 $.
+
+    \subsection{Einschub: Dreiecksungleichung}
+    $ \forall x,y \in \mathbb{R} : |x+y| \leq |x| + |y| $
+
+    \paragraph{Beweis}
+    $$  x \leq |x| ,  y \leq |y| \Rightarrow   x+y  \leq |x| + |y| $$
+    $$ -x \leq |x| , -y \leq |y| \Rightarrow -(x+y) \leq |x| + |y| $$
+    $$ \implies |x+y| \leq |x| + |y| \;\;\;\square $$
+
+    \subsection*{Fortsetzung}
+    Nach Dreiecks-Ungleichung: $ | a_{n_0} - a + (a - a_{n_0 + 1}) | < 1 $, also
+    $ | a_{n_0} - a_{n_0 + 1} | < 1 $
+
+    Widerspruch! Die Funktion divergiert also.
+
+    \subsection{}
+    \paragraph{Proposition}
+    Sind $(a_n)$ und $(b_n)$ Folgen mit $ \lim_{n \to \infty}a_n = a,\; \lim_{n
+      \to \infty}b_n = b $ so gilt:
+
+    \begin{enumerate}
+      \item $ \lim_{n\to\infty}(a_n + b_n) = \lim_{n \to\infty} a_n +
+        \lim_{n\to\infty} b_n $
+      \item $ \lim_{n\to\infty} (a_n \cdot b_n) = ( \lim_{n \to\infty} a_n \cdot
+          \lim_{n\to\infty} b_n ) $
+      \item $ \lim_{n\to\infty} \frac{a_n}{b_n} = \frac{\lim_{n\to\infty}
+          a_n}{\lim_{n\to\infty} b_n}$, falls $ b \neq 0$
+    \end{enumerate}
+
+    \subparagraph{Beispiel}
+    $$ \lim_{n\to\infty} \frac{2n^2-3}{n^2+n+1} = \lim_{n\to\infty}
+    \frac{2 - \frac{3}{n^2}}{1 + \frac{1}{n} + \frac{1}{n^2}} = \frac{
+      \lim_{n\to\infty} (2 - \frac{3}{n^1})}{ \lim_{n\to\infty} (1 + \frac{1}{n}
+      + \frac{1}{n^2}) } = \frac{\lim_{n\to\infty} 2 + \lim_{n\to\infty} (-
+      \frac{3}{n^2})}{\lim_{n\to\infty} 1 + \lim_{n\to\infty} \frac{1}{n} +
+      \lim_{n\to\infty} \frac{1}{n^2}} = \frac{2 + 0}{1 + 0 + 0} = 2$$
+
+
+    \subparagraph{Beweis zu \text{1.}}
+    Zu zeigen: $ \forall \varepsilon > 0 \exists n_0 : \forall n \geq n_0 : |a_n
+    + b_n - a - b| < \varepsilon $
+
+    Sei $\varepsilon > 0 $ vorgegeben.
+
+    Da $ \lim_{n\to\infty} a_n = a $ und $\lim_{n\to\infty} b_n = b$ existieren
+    $n_1, n_2$ mit $ \forall n \geq n_1 : | a_n - a | < \frac{\varepsilon}{2} $
+    und $ \forall n \geq n_2 : | b_n - b | < \frac{\varepsilon}{2} $
+
+    Für $ n \geq max(n_1, n_2) = n_0 : |a_n + b_n -a - b | \stackrel{}{\leq} |a_n - a| + |b_n - b| <
+    \frac{\varepsilon}{2} + \frac{\varepsilon}{2} = \varepsilon $
+
+    \subsection{Beispiel: Fibonacci-Folge, die Zweite}
+    $ F_0 = 0, F_1 = 1, F_2 = 1, F_3 = 2, F_4 = 3, 5, 8, 13, 21, \dotsb $
+
+    $$ \frac{F_{n+1}}{F_n} : \frac{1}{1}, \frac{2}{1}, \frac{3}{2},
+    \frac{5}{3}, \frac{8}{5}, \dotsb \stackrel{?}{\to} \phi := \frac{1}{2}(1 +
+    \sqrt{5}) $$
+
+    \paragraph{Satz (Bichet)}
+    Es gilt: $F_n = \frac{1}{\sqrt{5}} (\varphi^n - \overline{\varphi}^n) $, wobei $
+    \overline{\varphi} := \frac{1}{2}(1-\sqrt{5}) $
+
+    \paragraph{Korollar}
+    $$ \lim_{n\to\infty} \frac{F_{n+1}}{F_n} = \varphi$$
+
+    \paragraph{Beweis}
+    $$ \lim_{n\to\infty} \frac{F_{n+1}}{F_n} = \lim_{n\to\infty}
+    \frac{\varphi^{n+1} - \overline{\varphi}^{n+1}}{\varphi^{n} -
+      \overline{\varphi}^{n}} = \lim_{n\to\infty} \frac{\varphi}{1} = \varphi$$
+\end{document}

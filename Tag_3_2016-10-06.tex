@@ -1,20 +1,37 @@
 \documentclass[14pt,a4paper]{article}
 
 \usepackage{setspace}
-\usepackage[margin=2.5cm]{geometry}
+\usepackage[margin=2cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[L]{Daniel Albert}
+\fancyfoot[C]{Alle Mitschriften ohne Garantie auf Korrektheit oder Vollständigkeit}
+\fancyfoot[R]{\thepage{} / \pageref{LastPage}}
+
 
 \newcommand{\dotcup}{\ensuremath{\mathaccent\cdot\cup}}
+\newcommand*\rfrac[2]{{}^{#1}\!/_{#2}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\Nzero}{\ensuremath{\N_0}}
 
 \begin{document}
 	\begin{center}
 		\Huge\textbf{Brückenkurs – Tag 3 – „3. Ausgabe“}
 	\end{center}
 	\par
-	
+
 	\section{Die natürlichen Zahlen und das Induktionsprinzip}
 	\subsection{Beispiel}
 		Von Tag 2:
@@ -28,7 +45,7 @@
 				$$ \frac{1}{2} \cdot 2 \cdot n \cdot (2n+1) -2 \cdot \frac{1}{2} n(n+1) = 2n^2 + n - n^2 -n = n^2 $$
 				Es wird zuerst die Summe aller Zahlen von $1$ bis $2n$ addiert, danach die Summe aller geraden Zahlen abgezogen
 
-				Hier auch implizite Verwendung der Assoziatät und Kommutivität der Addition.
+				Hier auch implizite Verwendung der Assoziativität und Kommutivität der Addition.
 
 	\subsection{Weiteres Beispiel}
 		\paragraph{Satz} Sei $ x \neq 1 $. Dann gilt: $\Sigma_{k=0}^{n} x^k = \frac{1-x^{n+1}}{1-x} $ („Geometrische Summe“)
@@ -39,15 +56,15 @@
 				$ x^0 = 1 ; \frac{1-x^2}{1-x} = 1 $ Formel stimmt also für $n=0$
 			\subparagraph{$ n \implies n+1 $}
 				$$ \Sigma_{k=0}^{n+1} x^k = x^{n+1} + \Sigma_{k=0}^{n} x^k = (I.V)  x^{n+1} + \frac{1-x^{n+1}}{1-x} = \frac{x^{n+1}(1-x) + 1 -x^{n+1}}{1-x} = \frac{1-x^{n+2}}{1-x} $$
-		\paragraph{Beweis 2} 
+		\paragraph{Beweis 2}
 			$$ \Sigma_{k=0}^n x^k = \frac{1-x^{n+1}}{1-x} \Leftrightarrow (1-x) \Sigma_{k=0}^n x^k = 1-x^{n+1} = \Sigma_{k=0}^{n} x^k - \Sigma_{k=0}^n x^{k+1} = \Sigma_{k=0}^n x^k - \Sigma_{k=1}^{n+1} x^k = x^0 - x^{n+1} = 1 - x^{n+1}  $$
 			Für $ x \neq 1 $.
 			q.e.d.
 	\subsection{Äquivalenz- und Induktionsprinzip}
 	\paragraph{Satz}
-		Jede nicht-leere Teilmenge von $ N_0 $ besitzt ein kleinstes Element. („ $N_0$ ist \textit{wohlgeordnet} “)
+		Jede nicht-leere Teilmenge von $ \mathbb{N}_0 $ besitzt ein kleinstes Element. („ $\mathbb{N}_0$ ist \textit{wohlgeordnet} “)
 	\paragraph{Beweis}
-		Sei $ M \subseteq N_0$ ohne kleinstes Element. Wir wollen zeigen dass: $ M = \emptyset $, d.h. $ P = \{ n \in N_0 | 0, 1, \dots, n \notin M \} = N_0 $  % $P = N_0 \setminus M = N_0 $
+		Sei $ M \subseteq \mathbb{N}_0$ ohne kleinstes Element. Wir wollen zeigen dass: $ M = \emptyset $, d.h. $ P = \{ n \in \mathbb{N}_0 | 0, 1, \dots, n \notin M \} = \mathbb{N}_0 $  % $P = \mathbb{N}_0 \setminus M = \mathbb{N}_0 $
 		Hierbei Anwendung des \textit{Peano-Axioms}:
 		\subparagraph{$0 \in P$}
 			Wäre $0 \notin P$, so wäre $0 \in M$, insbesondere kleinstes Element von $M$. Dies ist ein Widerspruch, also $0 \in P$.
@@ -61,9 +78,9 @@
 			Eine \textbf{Relation} auf einer Menge $M$ ist eine Teilmenge $ R \subseteq M \times M $
 			Wir schreiben $ x \sim y :\Leftrightarrow. (x,y) \in R$ für $x,y \in M$.
 
-			\paragraph{Beispiel} $ x \leq y $ auf $ N_0$:
-				
-				[Skizze: Punkte auf Gitter, $x,y \leq 4 \in N_0$. Oberhalb und auf der Diagonale blaue Menge.]
+			\paragraph{Beispiel} $ x \leq y $ auf $ \mathbb{N}_0$:
+
+				[Skizze: Punkte auf Gitter, $x,y \leq 4 \in \mathbb{N}_0$. Oberhalb und auf der Diagonale blaue Menge.]
 
 				\begin{tabular}{ c | c | c | c | c   c }
 					  & 0 & 1 & 2 & 3 & y \\
@@ -97,5 +114,77 @@
 
 				\subparagraph{Äquivalenzklassen}
 					In diesem Beispiel: $ Z = \{Gerade Zahlen\} \dotcup \{Ungerade Zahlen\} $
-\end{document}
 
+
+			\paragraph{Definition} Sei $ \sim $ eine Relation auf einer Menge $M$. Für $ x \in M $ heißt dann $ [x]_{(\sim)} := \{ y \in M | x \sim y \}$ die \textbf{Äquivalenzklasse} zu $x$.
+				\subparagraph{Beispiel}
+					$ [Peter]_{verwandt} = Peters Familie $
+			\paragraph{Satz}
+				Es gilt für alle Äquivalenzrelationen auf eine Menge $M$ mit $x,y \in M$:
+				\begin{enumerate}
+					\item $ x \in [x] $
+					\item $ x \sim y \implies [x] = [y] $
+					\item $ [x] \neq [y] \implies [x] \cap [y] = \emptyset $
+				\end{enumerate}
+			\paragraph{Beweis}
+				\begin{enumerate}
+					\item $ x \in [x] \Leftrightarrow x \sim x $ ok
+					\item Sei $x \sim y $ Zu \textbf{zeigen}: $ [x] = [y] $. \\
+						$ z \in [x] \Leftrightarrow x \sim z \implies^{x \sim y}_{y \sim x} y \sim z \Leftrightarrow z \in [y] $
+					\item Wir zeigen: $ [x] \cap [y] \neq \emptyset \implies [x] = [y] $ \\
+						Es existiert also $ z \in [x] \cap [y]$, d.h. $ z \in [x] $ und $ z \in [y] $, d.h. $ x \sim z$, $y \sim z \implies x \sim y \implies x] = [y]$.
+				\end{enumerate}
+				q.e.d.
+
+			\paragraph{Definition}
+				$x$ heißt \textbf{Repräsentant} seiner Äquivalenzklasse $ [x] $: \\
+				$ M = \dotcup [x]$. \{$x$ Repräsentantensystem\}
+
+			\paragraph{Definition}
+				Sei $R$ eine Äquivalenzrelation auf einer Menge $M$. Dann heißt $ \rfrac{M}{R} := \{ [x]_R | x \in R \} $ der \textbf{Quotioent von M nach R}.
+		\subsection{Konstruktion der ganzen Zahlen}
+			Erklärung ganzer Zahlen als Paar zweier natürlicher Zahlen. Dabei Subtraktion der Zahlen.
+			Beispiel: Kontostand zusammengesetzt aus Einzahlungen und Abhebungen.
+
+			$ ( Einzahlungen, Abhebungen) \sim (Einzahlungen', Abhebungen') \Leftrightarrow E + A' = E' + A $
+			Auf der Menge der Paare $(n, m)$ natürlicher Zahlen definieren wir die Relation $(n,m) \sim (a,b) :\Leftrightarrow n +b = m + a $ \\
+			Es ist $ \sim $ eine Äquivalenzrelation: Ist reflexiv und symmetrisch.
+			Transitivität: $$ (n,m) \sim (a,b) \land (a,b) \sim (u,v) \implies n+b = m+a \land a + v = b + u \implies u + b + a + v = m + a + b + u \implies n + v = m + u \implies (n, m) \sim (u, v) $$
+
+			Die Äquivalenzklasse zum Paar $(n,m)$ heißt $[n,m]$
+
+			\paragraph{Beispiel} $ [3,2] \sim [5,4] $
+
+			\paragraph{Definition}
+				$$ Z = \rfrac{\mathbb{N}_0 \times \mathbb{N}_0}{\sim} = \{ [n,m] \; | \; n,m \in \mathbb{N}_0 \} $$
+				Jeder natürlichen Zahl $n$ entspricht eine ganze Zahl $ [n, 0] $.
+				$ \to \mathbb{N}_0 \subseteq Z $ \\ $n \mapsto [n,0]$.
+
+			\subparagraph{Negative Zahlen}
+				$ - [n,m] = [m,n] $
+			\subparagraph{Beispiel}
+				$ n \in \mathbb{N}_0 \; ; \; -n = -[n,0]  = [0,n]$
+				Ist diese Relation wohldefiniert?
+				$ - [7,2] = [2,7] $
+				\subparagraph{Zu zeigen} $[n,m] \sim [a,b] \implies [m,n] \sim [b,a]$ \\
+					Begründung: Wenn $ [n,m] \sim [a,b] \Leftrightarrow n + b = m + a \Leftrightarrow m+a = n+b \Leftrightarrow [m,n] \sim [b,a] $
+			\subparagraph{Addition}
+				$ [n,m] + [a,b] := [n+a, m+b] $
+			\subparagraph{Multiplikation}
+				$ [m,n] \cdot [a,b] := [ma+nb, \; na+mb] $
+		\subsection{Rationale Zahlen}
+			Auf der Menge $ Z \times N_{>0} $ betrachten wir die Relation $(a,s) \sim (b,t) \Leftrightarrow a \cdot t = b \cdot s $
+			\paragraph{Rechnung} $\sim$ ist Äquivalenzrelation.
+			Die Äquivalenzklasse zu $(a,s)$ bezeichnen wir mit $\frac{a}{s}$. \\
+			$ \mathbb{Q} := \rfrac{\mathbb{Z} \times \mathbb{N}_0}{N}$
+			\paragraph{Addition}
+				$$ \frac{a}{s} + \frac{b}{t} := \frac{at + bs}{st} $$
+
+				$$ \frac{b'}{t'} = \frac{b}{t} \Leftrightarrow t b' = t' b \implies \frac{at + bs}{st} = \frac{at' + b's}{s t'} \Leftrightarrow t'b = t b' $$
+
+		\subsection{Binomialkoeffizienten}
+			Sei $x$ eine (reelle) Zahl, $ k \geq 0 $ natürliche Zahl.
+			Dann heißt $ \left(\!\begin{array}{c} x \\ k \end{array}\!\right) := \frac{x \cdot (x-1) \cdot \dots \cdot (x - k + 1)}{k!} $ der \textbf{Binomialkoeffizient} „x über k“.
+			\paragraph{Spezialfall}
+				Sei $ 0 \leq k \leq n $ eine natürliiche Zahl. Dann ist $ \left(\!\begin{array}{c} n \\ k \end{array}\!\right) = \frac{n!}{k!(n-k)!} $
+\end{document}

@@ -1,0 +1,207 @@
+\documentclass[14pt,a4paper]{article}
+
+\usepackage{setspace}
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[L]{Daniel Albert}
+\fancyfoot[C]{Alle Mitschriften ohne Garantie auf Korrektheit oder Vollständigkeit}
+\fancyfoot[R]{\thepage{} / \pageref{LastPage}}
+
+
+\newcommand{\dotcup}{\ensuremath{\mathaccent\cdot\cup}}
+\newcommand*\rfrac[2]{{}^{#1}\!/_{#2}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\Nzero}{\ensuremath{\N_0}}
+
+\begin{document}
+	\begin{center}
+		\Huge\textbf{Brückenkurs – Tag 4 – „Fancy Friday“}
+	\end{center}
+	\par
+
+  \setcounter{section}{2}
+	\section{Binomialkoeffizienten}
+		$ k \in \mathbb{N}_0 : \binom{x}{k} = \frac{x \cdot (x-1) \cdot (x-2) \dots (x-k+1)}{k!} $
+
+		Dabei gilt:
+		$$ \binom{n}{0} = 1 ,\;\; \binom{0}{0} = 1,\;\; \binom{0}{k} = 0 $$
+
+		\paragraph{Spezialfall} $ 0 \leq k \leq n \in \mathbb{N}_0 $
+			$$ \binom{n}{k} = \frac{n!}{k! \cdot (n-k)!} \in \mathbb{Q} $$
+			Durch Experiment: $ \in \mathbb{N}_0 $
+
+		\paragraph{Aufgabe}
+			$ \binom{x}{k} = \binom{x-1}{k-1} + \binom{x-1}{k} $ für $ k \geq 1 $
+
+			[ Beispiel für rekursive Berechnung von $\binom{5}{3} $]
+			$$ \binom{5}{3} = \binom{4}{2} + \binom{4}{3} = \binom{3}{1} + \binom{3}{2} + \binom{3}{2} + \binom{3}{3} = \dots = \binom{0}{\dots} + \dots + \binom{0}{\dots} $$
+
+		\paragraph{Satz}
+			Seien $k,n \in \mathbb{N}_0$. Dann ist die Anzahl der $k$-elementigen Teilmengen einer $n$-elementigen Menge $M$ durch $\binom{n}{k}$ gegeben.
+
+			\subparagraph{Beweis mit Induktion über $n$}
+				$n=0$: $M = \emptyset $. Anzahl der $k$-elementigen Teilmengen von $M = \begin{cases} 1 & \text{für } k = 0 \\ 0 & \text{für } k > 0 \\ \end{cases} \stackrel{stimmt}{=} \binom{0}{k} $
+				$n => n+1$: Sei $M = \{a_0, a_1, \dots, a_n\}$ $(n+1)$-elementig.
+				Dann ist $ M' := {a_1, \dots, a_n} $ $n$-elementig.
+
+				Sei $ L \subseteq M $ eine $k$-elementige Teilmenge.
+				Dann ist entweder $ L = {a_0} \cup L' $ mit $ L' \subseteq (k-1)$-elementig oder $ L \subseteq M'$, $k$-elementig.\
+				und alle $k$-elementigen Teilmengen $L \subseteq M$ entstehen eindeutig auf diese Weise.\\
+				Damit ist die Anzahl der $k$-elementigen Teilmengen von $M \stackrel{IV}{=} \binom{n}{k-1} + \binom{n}{k} \stackrel{Aufg.}{=} \binom{n+1}{k} $
+
+				Fall $k = 0$ trivial, daher $k > 0$.
+
+				q.e.d.
+		\subsection{Anwendung}
+			$$ ( x + y) ^n = \Sigma_{k=0}^n \binom{n}{k} \cdot x^{n-k} \cdot y^k $$
+
+			\paragraph{Beispiel}
+				$$ (x + y)^2 = \binom{2}{0} x^2 y^0 + \binom{2}{1} x^1 y^1 + \binom{2}{2} x^0 y^2 = x^2 + 2xy + y^2 $$
+				$$ (x + y)^3 = \binom{3}{0} x^3 y^0 + \binom{3}{1} x^2 y^1 + \binom{3}{2} x^1 y^2 + \binom{3}{3} x^0 y^3 = x^3 + 3x^2y+3xy^2+y^3 $$
+
+			\paragraph{Begründung}
+				$$ (x+y)^n = (x+y)(x+y)\dots(x+y) = \Sigma n\text{-fache Produkte} = \Sigma_{k=0}^n \binom{n}{k} x^{n-k}y^k $$
+%				$n$ Faktoren\quad
+
+			Verständnisfrage: Was ist $ \Sigma_{k=0}^n \binom{n}{k} \text{?} = |P(M)| = 2^n =  \text{Anzahl der Teilmengen einer n-elementigen Menge} $
+
+	\section{Der euklidische Algorithmus}
+		Im Folgenden: $ d,n \in \mathbb{N}_0 $
+		\subsection{Definition}
+			Die Zahl $d$ \textbf{teilt} $n$, geschrieben $d|n$, falls $n = b \cdot d$ für ein $b \in \mathbb{Z}$.
+		\paragraph{Beispiele}
+			$ 2 | 100 $, $ 11|165$, $-13|169$, $5 \text{X}21$.
+		\subsection{Regeln}
+			\begin{enumerate}
+				\item $1|n,\,\,n|n,\,\,d|0$
+				\item $0|d \implies d=0,\;d|1 \implies d = \pm 1$
+				\item $d|n, n|m \implies d|m$
+				\item $d|a, d|b \implies d|(ax + bx) \text{ für alle } x,y \in \mathbb{Z}$
+				\item $bd | bn,\, b \neq 0 \implies d|n$
+				\item $d|n, \, n \neq 0 \implies |d| \leq |n|$\,\,Jedes $n \neq 0$ hat nur endlich viele Teiler; insbesondere $1$.
+				\item $d|n,\,n|d \implies d = \pm n$
+			\end{enumerate}
+
+			\paragraph{Beweis von 4.}
+				Es gelte also $d|a, d|b$ d.h. $a=sd, b=td \text{ für } s,t \in \mathbb{Z}$
+				Damit ist $ax+by=sdx+tdy=(sx+ty)\cdot d$, also $d|ax+by$
+
+			\paragraph{Konsequenz}
+				Aus diesen Regeln ergibt sich, dass jede Zahl endlich viele Teiler hat, also haben je zwei $a,b \in \mathbb{Z}$ einen größten gemeinsamen Teiler, $ggT(a,b)$, wobei $ggT(0,0) := 0$.
+
+			\paragraph{Es gilt}
+				\begin{itemize}
+					\item$ggT(a,b) | a,\,\,\, ggT(a,b) | b$.
+					\item $d|a,\,\,\,d|b \implies d|ggT(a,b)$.
+				\end{itemize}
+
+			\paragraph{Beispiel}
+				$ggT(11,14) = 1,\,\, ggT(21,14) = 7,\,\, ggT(110, 140) = 10,\,\, ggT(210, 140) = 70$.
+
+		\subsection{Satz: Division mit Rest}
+			$ a,b \in \mathbb{Z},\,b \neq 0 $. Dann existieren eindeutige $ q,r \in \mathbb{Z} $ mit $ a = bq + r $ mit $ 0 \leq r < |b| $.
+			\paragraph{Beweis}
+				$ R = \{ a - bq\,\,|\,\,q \in \mathbb{Z} \} \cap \mathbb{N}_0 $ ist nicht leer.
+				Diese besitzt ein kleinstes Element, welches das gesuchte $ r = a - bq $ für das gewünschte $q$ ist.\\
+				Bleibt zu zeigen: $r < |b|$. Dies folgt aus der Minimalität von $r \in R$. \\
+				q.e.d.
+			\paragraph{Folgerung}
+				Seien $ a,b \in \Z$, $d=ggT(a,b) $. Dann $ (d) := \{d \cdot n \in \Z\} = \{ax + by | x,y \in \Z \} =: (a,b) $. \\
+				Insbesondere läßt sich $d$ in der Form $d = ax + by$ für gewisse $ x,y \in \Z$ schreiben.
+				(Beispiel: $ ggT(9, 6) = 3 = 9 \cdot 1 + 6 \cdot (-1) $)
+			\paragraph{Beweis}
+				\par
+				„$\supseteq$“
+				$ ax + by \in (d) \Leftrightarrow d|(ax + by) $ (wg. 4. und $d|a$, $d|b$)
+				\par
+				„$\subseteq$“
+				Es reicht zu zeigen, dass $ d \in (a,b) $.
+				Der Fall $ a=0 $ ist einfach: Also sei $a \neq 0$. \\
+				Die Menge $ M := {ax + by | x,y \in \Z} \cap \N_{\ge 1} $ ist nicht leer; damit besitzt sie ein kleinstes Element $m \ge 1$.
+				Wir wissen schon ( 4. ), dass $d|m$.
+				Division mit Rest liefert $ a = mq + r,\,\, 0 \le r < m $.
+
+				\subparagraph{Annahme}
+					$r > 0$. Dann ist $ r = a - mq \in M$ \textbf{!\;Widerspruch\;!} Also $ r = 0$, also $a = mq$, daher $m|a$.
+
+					Analog (mit $b$ anstelle von $a$) erhalten wir $m | b$, also ist $m$ gemeinsamer Teiler von $a$ und $b$.
+					Damit $m \le d$. Zusammen mit $ d \le m $ folgt $ d = m $.
+					Somit $ d \in (a,b) $.
+
+					$m\,|\,a, m\,|\,b \stackrel{iv}{\implies} m\,|\,ggT(a,b) $
+					$\square$
+
+		\subsection{Praktische Bestimmung des $ggT$}
+			\[
+				\begin{matrix}
+					117 & = & 3 & \cdot & 33 & + & 18 \\
+					 33 & = & 1 & \cdot & 18 & + & 15 \\
+					 18 & = & 1 & \cdot & 15 & + &  3 \\
+					 15 & = & 5 & \cdot &  3 & + &  0
+				\end{matrix}
+			\]
+
+			Verbleibende Zahl $ 3 = ggT(117, 33) $.
+		\subsection{Satz über den euklidischen Algorithmus}
+			Seien $a,b \in \Nzero,\, a \ge b \ne 0 $.\\
+			\[
+				\begin{matrix}
+					a       & = & q_1     & \cdot & b       & + & r_1 & 0 \le r_1 < b   \\
+					b       & = & q_2     & \cdot & r_1     & + & r_1 & 0 \le r_2 < r_1 \\
+					r_1     & = & q_3     & \cdot & r_2     & + & r_1 & 0 \le r_3 < r_2 \\
+					        &   &         &       & \vdots  &   &     &                 \\
+					r_{n-2} & = & q_n     & \cdot & r_{n-1} & + & r_1 & 0 \le r_1 < b   \\
+					r_{n-1} & = & q_{n+1} & \cdot & r_n     & + & 0   &
+				\end{matrix}
+			\]
+
+	\section{Primzahlen}
+		\subsection{Definition}
+			Ein $p \in \Nzero$ heißt \textbf{Primzahl}, wenn sie genau zwei positive Teiler besitzt.
+		\subsection{Lemma von Euklid}
+			Seien $p$ eine Primzahl, $a,b \in \Z$. Dann: $ p\,|\,(a \cdot b) \implies p\,|\,a \land p\,|\,b $
+
+			\subsubsection{Beweis}
+				Sei $ d = ggT(p,a) $. Dann $ d | p $. Nach Voraussetzung ist dann $ d = 1 $ oder $ d = p $.
+				\paragraph{Fall 1: $d = p$}
+					Dann $ p | a $, da $ p = ggT(p, a) $.
+				\paragraph{Fall 2: $d = 1$}
+					Damit ist $ 1 = px + ay $ mit $ x,y \in \Z $. \\
+					$ \stackrel{b}{\implies} b = bpx + aby \stackrel{p | ab}{\implies} p | b $\\
+					$ \square $
+		\subsection{Fundamentalsatz der Arithmetik}
+			\paragraph{Satz}
+				Jede natürliche Zahl $n \ge 1$ besitzt eine eindeutige Primfaktorzerlegung („\textit{PFZ}“), d.h.\ es existieren eindeutig bestimmte Zahlen $ \nu_{p}(n) \in \Nzero $ mit $$ n = \prod_{\substack{p \in \mathbb{P}}} p^{\nu_{p}(n)}$$
+			\paragraph{Beispiel}
+				$ 60 = 2^2 \cdot 3^1 \cdot 5^1 \cdot 7^0 \dots $ \; hier bspw.: $ \nu_3(60) = 1 $
+
+			\paragraph{Beweis}
+				\subparagraph{Existenz}
+					Sei $ M = \{ n \in \N \text{ mit } n \ge 1 \text{ ohne } PFZ \} $. Zu zeigen: $ M = \emptyset $.
+					Sei $ n \in M $.\\
+					Dann ist jedenfalls $n$ keine Primzahl, also existieren $ 2 \le a,b < n $ mit $ n = ab $.
+					Damit muss $ a \in M \lor b \in M $.
+					Insbesondere ist $ n $ in $ M $ nicht kleinstes Element.
+
+					Also hat $ M $ kein kleinstes Element und $ M = \emptyset $.
+
+				\subparagraph{Eindeutigkeit}
+					Sei $ n = p_1 \cdot p_2 \dots p_r = q_1 \cdot q_2 \dots q_s $ mit $p_i, q_j $ Primzahlen.\\
+					$ p_1 \, | \, p_1 \dots p_r \implies p_1 \, | \, q_1 \dots q_s \stackrel{Euklid}{\implies} p_1 \, | \, q_j $ für ein $ j $. Da $p_1, q_j$ Primzahlen $\implies p_1 = q_j$.
+					Dann kürze mit $ p_1 ( = q_j ) $ und mache mit $ p_2 $ weiter, …
+
+
+\end{document}

@@ -1,0 +1,305 @@
+\documentclass[14pt,a4paper]{article}
+
+\usepackage{setspace}
+\usepackage[margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[L]{Daniel Albert}
+\fancyfoot[C]{Alle Mitschriften ohne Garantie auf Korrektheit oder Vollständigkeit}
+\fancyfoot[R]{\thepage{} / \pageref{LastPage}}
+
+
+\newcommand{\dotcup}{\ensuremath{\mathaccent\cdot\cup}}
+\newcommand*\rfrac[2]{{}^{#1}\!/_{#2}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\Nzero}{\ensuremath{\N_0}}
+
+\begin{document}
+	\begin{center}
+		\Huge\textbf{Brückenkurs – Tag 5 – 2016-10-10}
+	\end{center}
+	\par
+
+  \section*{In der letzten Ausgabe}
+  In der letzten Vorlesung behandelt: Primfaktorzerlegung.
+  Weiterhin ist unbekannt, wie viele Primzahlen existieren. Ist ihre Zahl
+  unbeschränkt?
+
+  \setcounter{section}{5}
+  \section{Primzahlen}
+  \paragraph{Satz (Euklid)}
+  Es gibt undendlich viele Primzahlen.
+
+  \subparagraph{Beweis}
+  Seien $ p_0, \dots p_{n-1} $ Primzahlen.
+
+  Dann können wir eine Primzahl $p_n$
+  konstruieren mit $p_n \notin \{p_0, \dots, p_{n-1}\}$:
+  Dazu betrachte: $ e := p_0 \dots p_{n-1} + 1 = q_1 \dots q_s $ mit
+  Primzahlen $ q_1, \dots, q_s$ (PFZ)
+
+%  Dabei Überlegung: $q_s$ teilt linke Seite, aber kein $p$ teilt die rechte
+%  Seite (wg. der Addition $+1$ führt zu Rest 1).
+
+  Da die $P-i$ jeweils $e$ nicht teilen (Rest $1$!), die $q_j$ aber $e$ teilen,
+  sind die $q_j$ von $p_i$ verschieden.
+  Damit ist $p_n := q_i$ die gesuchte Primzahl.
+
+  \subparagraph{Beispiel}
+  $$
+  \begin{array}{r c c c l}
+    \emptyset & \rightsquigarrow & 1 + 1 & = & 2 = 2^1  \\
+  {2} & \rightsquigarrow & 2 + 1 & = & 3 = 3^1 \\
+  {2,3} & \rightsquigarrow & 2 \cdot 3 + 1 & = & 7 = 7^1 \\
+  {2,3,7} & \rightsquigarrow & 2 \cdot 3 \cdot 7 + 1 & = & 43 = 43^1 \\
+  {2, 3,7,43} & \rightsquigarrow & 2 \cdot 3 \cdot 7 \cdot 43 + 1 & = & 1807 = 13 \cdot
+    139 \\
+  \end{array}
+  $$
+
+  \paragraph{Primzahlsatz}
+  Sei $\pi(x)$ die Anzahl der Primzahlen $ \le x$.
+  Dann gilt: $\pi(x) \approx \frac{x}{\ln x}$, d.h.
+
+  $$ \lim_{x \to \infty} \rfrac{\pi(x)}{\rfrac{x}{\log x}} = 1$$
+
+  $$ \pi(1) = 0, \pi(2) = 1, \pi(3)=2, \pi(4) = 2, \pi(5)=3, \pi(7,5)=4,
+  \dotsb $$
+  % Diese Funktion ist eine Treppenfunktion mit Sprungstellen an den Primzahlen.
+
+  Riemannsche Vermutung: $ \Sigma_{n=1}^{\infty} \frac{1}{n^s} = \zeta(s) $
+
+  Sei $p_n$ die $n$-te Primzahl ($p_0 = 2, p_1=3, \dotsb $).
+  \subparagraph{Behauptung}
+  $ p_n < e^{2^n} $ (Konvention \footnote{$ (a^b)^c = a^{b \cdot c} $, $ a^{b^c}
+    =: a^{b^c}$})
+
+  \subparagraph{Beweis per Induktion über $n$}\par
+  \textbf{n=0}\par
+  $p_0 = 2; e^{2^0} = e^1 = e > 2$\par
+  \textbf{$n \implies n+1$}
+  $$p_{n+1} \stackrel{\text{Euklid}}{\leq} p_0 \dots p_n + 1 = e^{2^0 + 2^1 +
+    \dotsb + 2^n} + 1 = e^{2^{n+1}-1}+1 = e^{2^{n+1}}(\frac{1}{e} +
+  \frac{1}{e^{2^{n+1}}}) < e^{2^{n+1}} \;\; \square$$
+
+  \section{Algebraische Strukturen}
+  \subsection{Definition: Gruppe}
+  Eine Gruppe ist eine Menge $G$ zusammen mit einem ausgezeichneten Element $e
+  \in G$ und einer Verknüpfung \\ $ \circ : G \times G \to G, (g,h) \mapsto g \circ
+  h$, so dass folgende Axiome gelten:
+
+  \begin{enumerate}
+    \item[(G1)] Die Verknüpfung ist assoziativ: $ g \circ ( h \circ k ) = (g \circ
+      h) \circ k$ für $g,h,k \in G$
+    \item[(G2)] Das Element $e$ ist neutrales Element: $ e \circ g = g = g \circ
+      e$ für $g \in G$
+    \item[(G3)] Jedes Element besitzt ein Inverses: Für alle $ g\in G$ existiert
+      ein $h \in G$ mit $g \circ h = e = h \circ g$
+  \end{enumerate}
+
+  Die Gruppe heißt kommutativ (oder \textit{abelsch}), falls zusätzlich gilt:
+  \begin{enumerate}
+    \item[(G4)] Die Verknüpfung ist kommutativ: $g \circ h = h \circ g$ für alle
+      $g,h \in G$.
+  \end{enumerate}
+
+  \subsubsection{Beispiele}
+  \paragraph{Beispiel}
+  $ G = \mathbb{Z}, e = 0 \in \mathbb{Z}, \circ=+ : \Z \times \Z \to \Z $
+
+  \begin{enumerate}
+    \item[(G1)] $g+(h+k) = (g+h)+k$ für alle $g,h,k \in \Z$\\ \par
+    \item[(G2)] $0+g = g = g+0 $ für alle $g \in \Z$ \\ \par
+    \item[(G3)] $g + (-g) = 0 = (-g) + g$ für alle $g \in \Z$ \\ \par
+    \item[(G4)] $g+h = h+g$
+  \end{enumerate}
+
+  \paragraph{Beispiel} $(\mathbb{Q}, 0, +)$ ist genauso eine abelsche Gruppe.
+  \paragraph{Beispiel} $(\Nzero, 0, +)$ ist \textbf{keine Gruppe}.
+  \paragraph{Beispiel} $(\Z, 1, \cdot)$ ist \textbf{keine Gruppe}, da G3 nicht
+  erfüllt (z.B. existiert kein $n \in \Z mit 2 \cdot n = 1$).
+  \paragraph{Beispiel} $(\mathbb{Q}, 1, \cdot)$ ist keine Gruppe, da G3 nicht
+  erfüllt (Es existiert kein $x \in \mathbb{Q} \text{mit} 0 \cdot x=1$)
+  \paragraph{Beispiel} $(\mathbb{Q*}, 1, \cdot)$, wobei $\mathbb{Q}*:=\mathbb{Q}
+  \setminus {0}$ ist eine Gruppe
+  \paragraph{Beispiel} $(\Q \setminus \Z, 1, \cdot)$ ist alles, aber keine
+  Gruppe
+
+  \subsubsection{Aussage}
+  Sei $G$ eine Gruppe mit zwei neutralen Elementen $e, e'$. Dann gilt $e = e'$.
+
+  \paragraph{Beweis}
+  $e = e \circ e' = e'$, da $e$ neutral und $e'$ neutral. $\square$
+
+  \paragraph{Bemerkung}
+  Analog zeigt sich, dass das Inverse zu einem Element eindeutig bestimmt ist.
+
+  \subsubsection{Aussage}
+  Sei $G$ eine Gruppe. Seien $a,b \in G$ mit Inversen $a^{-1} \text{ bzw. }
+  b^{-1} \in G$.
+  Dann ist $b^{-1} \cdot a^{-1}$ invers zu $(a \circ b)$ \\ $=: ( a \circ
+  b)^{-1}$
+
+  \paragraph{Beweis}
+  $$ (b^{-1} \circ a^{-1}) \circ (a \circ b) = b^{-1} \circ (a^{-1} \circ a)
+\circ b = b^{-1} \circ b = e $$
+  \subparagraph{Analog}
+  $$ (a \circ b) \circ (b^{-1} \circ a^{-1}) = \dotsb = e $$
+
+  \paragraph{Schreibweise}
+%  $\circ$ ist Konvention, manchmal auch als $\cdot$ geschrieben.
+  Auch in abstrakten Gruppen schreiben wir häufig $\cdot$ statt $\circ$ für die
+  Verknüpfung und $1$ für das neutrale Element.
+  \textbf{Abkürzung} $ab := a \cdot b, a^{-1} := \text{Inverses zu a}$.
+
+  \paragraph{Aussage}
+  Sei $G$ eine (multiplikativ geschriebene) Gruppe. Für $ a \in G$ gilt dann
+  $(a^{-1})^{-1} = a$
+  \subparagraph{Beweis}
+  $a \cdot a^{-1} = 1 = a^{-1} \cdot a\;\;\;\square$
+
+  \subparagraph{Beispiel}
+  [ Gleichseitiges Dreieck mit gegen den Urzeigersinn nummerierten Ecken 1 - 3]\\
+  Symmetrien in der Ebene: $ \left\{ \begin{pmatrix} 1 & 2 & 3 \\ 1 & 2 &
+      3 \end{pmatrix}, \begin{pmatrix} 1 & 2 & 3 \\ 3 & 1 & 2 \end{pmatrix}, \begin{pmatrix} 1 & 2 & 3 \\ 2 &
+      3 & 1 \end{pmatrix} \right\} =: G$ \\
+  mit $e$, $\tau$, $\sigma$.\\
+  Seien $g,h \in G$. Dann sei $g \cdot h$ die Hintereinanderausführung von $h$
+  und danach $g$.
+
+  \subparagraph{Beispiel}
+  $$ \begin{pmatrix} 1 & 2 & 3 \\ 3 & 1 & 2 \end{pmatrix} \circ \begin{pmatrix}
+    1 & 2 & 3 \\ 2 & 3 & 1 \end{pmatrix} = \begin{pmatrix} 1 & 2 & 3 \\ 1 & 2 &
+    3 \end{pmatrix}$$
+  $\tau \circ \sigma = e$
+
+  Gruppentafel:\\
+  \begin{tabular}{ c | c | c | c }
+	  a $\setminus$ b & $e$ & $\sigma$ & $\tau$ \\ \hline
+		$e$             & $e$ & $\sigma$ & $\tau$ \\ \hline
+		$\sigma$        & $\sigma$ & $\tau$ & $e$ \\ \hline
+		$\tau$          & $\tau$ & $e$ & $\sigma$ \\
+	\end{tabular}
+
+  \subparagraph{Beispiel}
+  [ Gleichseitiges Dreieck mit gegen den Urzeigersinn nummerierten Ecken 1 - 3]\\
+  Symmetrien im Raum: $$ \left\{
+    \begin{pmatrix} 1 & 2 & 3 \\ 1 & 2 & 3 \end{pmatrix},
+    \begin{pmatrix} 1 & 2 & 3 \\ 3 & 1 & 2 \end{pmatrix},
+    \begin{pmatrix} 1 & 2 & 3 \\ 2 & 3 & 1 \end{pmatrix},
+    \begin{pmatrix} 1 & 2 & 3 \\ 1 & 3 & 2 \end{pmatrix},
+    \begin{pmatrix} 1 & 2 & 3 \\ 3 & 2 & 1 \end{pmatrix},
+    \begin{pmatrix} 1 & 2 & 3 \\ 2 & 1 & 3 \end{pmatrix}
+  \right\}$$
+  mit $e$, $\tau$, $\sigma$, $\alpha_1$, $\alpha_2$, $\alpha_3$.
+
+  $\alpha_1 \circ \sigma = \alpha_2$, $\sigma \circ \alpha_1 = \alpha 3 \neq
+  \alpha_2 = \alpha1 \circ \sigma$
+  Also nicht abelsch / kommutativ.
+
+  $$ \alpha_1^2 = \alpha_1 \circ \alpha_1 = e \implies \alpha_1^{-1} =
+  \alpha_1$$
+
+  \paragraph{Definition: symmetrische Gruppe}
+  Die \textbf{symmetrische Gruppe in $n$ Buchstaben} ist die Gruppe der
+  Permutationen von ${1, \dots, n}$, geschrieben $S_n$, d.h. $S_n =
+  \left\{ \begin{pmatrix} 1 & 2 & \cdots & n \\ \sigma_1 & \sigma_2 & \cdots &
+      \sigma_n \end{pmatrix} | (\sigma_1, \dotsb, \sigma_n) \text{ Permutationen
+      von } (1, \dotsb, n) \right\}$
+
+  \subparagraph{Beispiel}
+  $\{\text{Dreiecks-Symmetrie im Raum}\} = S_3$
+
+  \subsubsection{Definition: Untergruppe}
+  Eine Teilmenge $U \subseteq G$ einer Gruppe $G$ heißt \textbf{Untergruppe},
+  falls (U1) $e \in U$, (U2) $g,h \in U \implies g \circ h \in U$, \\ (U3) $g \in U
+  \implies g^{-1} \in U$
+
+  \subparagraph{Beispiel}
+  $\{\text{Dreiecks-Symmetrien in der Ebene}\} \subseteq \{Dreiecks-Symmetrien im
+  Raum\}$
+  \subparagraph{Beispiel}
+  $\Z \subseteq (\Q, 0, +)$ ist Untergruppe
+
+  \subparagraph{Beispiel}
+  $\Nzero \subseteq (\Z, 0, +)$ ist keine Untergruppe.
+
+  \subsubsection{Definition: Kommutative Ringe}
+  Ein \textbf{kommutativer Ring} ist eine Menge $R$ zusammen mit zwei
+  ausgezeichneten Elementen $0$ und $1 \in R$ und zwei Verknüpfungen $ + : R \times R \mapsto R$ und $\cdot : R \times R \mapsto R$ so dass gilt:
+
+  \begin{enumerate}
+    \item[(R1)] $ \forall x,y,z \in R:   x + (y + z) = (x + y) + z $
+    \item[(R2)] $ \forall x \in R: x + 0 = x = 0 + x $
+    \item[(R3)] $ \forall x \in R \;\exists\; y \in R : x + y = 0 = y + x $
+    \item[(R4)] $ \forall x,y \in R : x + y = y + x $
+    \item[(R5)] $ \forall x,y,z \in R : x \cdot (y \cdot z) = (x \cdot y) \cdot
+      z $
+    \item[(R6)] $ \forall x \in R : x \cdot 1 = x = 1 \cdot x $
+    \item[(R7)] $ \forall x,y \in R: x \cdot y = y \cdot x $
+    \item[(R8)] $ \forall x,y,z \in R : x \cdot (y + z) = x \cdot y + x \cdot z
+      \land ( y + z) \cdot x = y \cdot x + u \cdot x $
+  \end{enumerate}
+
+  \paragraph{Beispiel}
+  $(\Z, 0, 1, +, \cdot)$
+
+  \paragraph{Beispiel}
+  $(\Q, 0, 1, +, \cdot)$
+
+
+  \paragraph{Beispiel}
+  \subparagraph{Menge der Polynome bis $X$ aus $\Z$}
+  $ \Z [ X ] = \{ a_nX^n + \dotsb + a_1X+a_0 \;\;|\;\; a_0, \dotsb, a_n \in \Z
+  \} $
+
+  \subparagraph{Beispiel}
+  $ ( \Z[X], 0, 1, +, \cdot )$
+
+  $ (R[X], 0, 1, +, \cdot) $ falls $R$ kommutativer Ring.
+
+  \subparagraph{Bemerkung}
+  Ist $(R, 0, 1, +, \cdot)$ ein kommutativer Ring, so ist $(R, 0, +)$ eine
+  abelsche Gruppe.
+
+  \paragraph{Definition}
+  Ist $R$ ein kommutativer Ring, so $ R* := \{ x \in R \;| \;\;\exists\; y \in R :
+  x \cdot y = 1 = y \cdot x \} $
+  Es ist $(R*, 1, \cdot)$ eine kommutative Gruppe, die \textbf{Einheitengruppe
+    von $R$}.
+  \subparagraph{Beispiel}
+  $ \Z* = \{ \pm 1\}, \Q* = \Q \setminus \{ 0 \} $
+
+
+  \paragraph{Definition: Körper}
+  Ein \textbf{Körper} $K$ der Menge ist ein kommutativer Ring für den Multiplikation
+  und Addition abelsch definiert sind.
+  Somit gelten für ihn die Axiome der abelschen Gruppen $(K,+,0)$ und $(K,
+  \cdot, 1)$ und das Distributivgesetz.
+  Außerdem ist definiert: $K* = K \setminus \{ 0 \}$
+
+  \subparagraph{Beispiel} $\Q$ und $\mathbb{R}$ sind Körper.
+
+  \subparagraph{Beispiel}
+  $ \Q( \sqrt{2} ) := \{ a + b \sqrt{2} \;|\; a,b \in \Q \} \subseteq
+  \mathbb{R}$ ist ein Unterkörper.
+
+  $$ 0 = 0 + 0 \sqrt{2} \;,\; 1 = 1 + 0 \sqrt{2} $$
+  % $$ (a + b ) $$
+
+  $$ \frac{1}{a+b\sqrt{2}} = \frac{a-b\sqrt{2}}{(a + b\sqrt{2})(a - b
+    \sqrt{2})} = \frac{a - b\sqrt{2}}{a^2 - 2b^2} = \frac{a}{a^2 -
+    2b^2} -  $$
+\end{document}
